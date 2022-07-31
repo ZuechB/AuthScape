@@ -1,0 +1,77 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Authentication
+@model IDP.ViewModels.LoginViewModel
+@inject SignInManager<AuthScape.Models.Users.AppUser> SignInManager
+
+@{ 
+    ViewData["Title"] = "Log in"; 
+    var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+}
+
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-7 col-lg-5">
+					<div class="wrap">
+						<div class="login-wrap p-4 p-md-5">
+			      			<div class="d-flex">
+			      				<div class="w-100">
+			      					<h3 class="mb-4">Sign In</h3>
+			      				</div>
+								<div class="w-100">
+									<p class="social-media d-flex justify-content-end">
+										@if (loginProviders.Count() > 0)
+										{
+											<div class="login100-form-social flex-c-m">
+												@{
+                        
+													@foreach (var provider in loginProviders)
+													{
+														//<a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
+
+
+														<button type="submit" class="social-icon d-flex align-items-center justify-content-center" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+															<img src="~/images/icons/facebookicon.svg" alt="Facebook" style="width:30px;" /> &nbsp;&nbsp;Login with @provider.DisplayName
+														</button>
+													}
+												}
+											</div>
+										}
+										
+									</p>
+								</div>
+			      			</div>
+							<form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="login100-form validate-form" role="form">
+			      				<div asp-validation-summary="All" class="text-danger"></div>
+								<div class="form-group mt-3">
+			      					<input type="text" asp-for="Email" placeholder="Email" class="form-control" required>
+			      				</div>
+								<div class="form-group">
+									<input id="password-field" asp-for="Password" placeholder="Password" type="password" class="form-control" required />
+								</div>
+								<div class="form-group">
+									<button type="submit" class="form-control btn btn-primary rounded submit px-3">Log in</button>
+								</div>
+								<div class="form-group d-md-flex">
+									<div class="w-100 text-md-center">
+										<a href="/forgotpassword" class="txt1">Forgot Password?</a>
+									</div>
+								</div>
+							</form>
+		          <p class="text-center">Don't have an account? 
+					<a class="txt2" asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]">Sign Up</a>
+				  </p>
+
+		        </div>
+		      </div>
+			</div>
+			</div>
+		</div>
+	</section>
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

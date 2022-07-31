@@ -1,0 +1,200 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Authentication
+
+@model IDP.ViewModels.Account.RegisterViewModel
+@{ ViewData["Title"] = "Register"; }
+
+
+<style>
+    .select2-dropdown {
+        z-index:9999999;
+    }
+    .select2-selection {
+        height:48px !important;
+    }
+    .select2-selection__arrow {
+        top:12px !important;
+    }
+    .select2-selection__rendered {
+        line-height: 48px !important;
+    }
+</style>
+
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-7 col-lg-5">
+				<div class="wrap">
+				    <div class="login-wrap p-4 p-md-5">
+						
+			        <form asp-controller="Account" asp-action="Register" asp-route-returnUrl="@ViewData["returnUrl"]" method="post" class="login100-form validate-form" role="form">
+                        <span class="login100-form-title p-b-43">
+					        Create your account
+				        </span>
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="col-md-12 control-label"></label>
+                            <div class="col-md-12">
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName" class="col-md-12 control-label"></label>
+                            <div class="col-md-12">
+                                <input asp-for="LastName" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email" class="col-md-12 control-label"></label>
+                            <div class="col-md-12">
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password" class="col-md-12 control-label"></label>
+                            <div class="col-md-12">
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="z-index:9999;">
+                            <label asp-for="Company" class="col-md-12 control-label"></label>
+                            <div class="col-md-12">
+                                <select id="companySearch" asp-for="Company" data-live-search="true" class="selectpicker form-control" style="height:48px;"></select>
+                                <span asp-validation-for="Company" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn-primary" style="width:100%; height:48px;">Register</button>
+                            </div>
+                        </div>
+
+                        <input id="hiddenTimeZone" asp-for="TimeZone" type="hidden" />
+
+                    </form>
+
+		            <p class="text-center">Don't have an account? 
+				        <a class="txt2" asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]">Sign Up</a>
+				    </p>
+
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</section>
+
+<div class="limiter">
+	<div class="container-login100">
+		<div class="wrap-login100">
+
+            
+
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script type="text/javascript">
+
+        function add_opt(event){
+		    var value = $(event).parents('div').siblings('.bs-searchbox').find('input').val();
+		    //$(event).parents('div').siblings('.selectpicker').append($("<option></option>").text(value)).val(value);
+		    //$('.selectpicker').selectpicker('refresh');
+
+            alert("Create this: " + value);
+	    }
+
+        $(function () {
+
+            //$('#companySearch').change(function() {
+            //    var thisValue = $(this).val();
+            //    alert(thisValue);
+            //});
+
+            $("#hiddenTimeZone").val(Intl.DateTimeFormat().resolvedOptions().timeZone);
+
+
+
+            //$('#companySearch').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            //  // do something...
+            //  alert("test")
+            //});
+
+
+
+            $('#companySearch')
+                .select2({
+                    minimumInputLength:1,
+                    tags: true,
+                    quietMillis:100,
+                    ajax: {
+                        url: '/account/GetCompanies',
+                        dataType: 'json',
+                        data: function (params) {
+                          var query = {
+                            search: params.term
+                          }
+                          return query;
+                        }
+                    },
+                    createTag: function (params) {
+                        return {
+                          id: params.term,
+                          text: params.term,
+                          newOption: true
+                        }
+                  },
+                    templateResult: function (data) {
+                        var $result = $("<span></span>");
+
+                        $result.text(data.text);
+
+                        if (data.newOption) {
+                          $result.prepend("+ Create ");
+                        }
+
+                        return $result;
+                    }
+                })
+                .on('select2:select', (e) => {
+                    var data = e.params.data.text;
+                    var id = e.params.data.id;
+
+                    if (data == id) {
+                        alert("New Company: " + data);
+                    }
+                    else
+                    {
+                        alert("Existing Company: " + data + " : " + id);
+                    }
+                    
+                })
+
+            //});
+
+            
+            //$('#companySearch')..select2()({
+            //    noneResultsText: '<button id="addCompany" class="btn btn-light" onclick=(add_opt(this))>Add ' + $(this).parents('div').siblings('.bs-searchbox').find('input').val() + '</button>'
+            //});
+        })
+
+    </script>
+}

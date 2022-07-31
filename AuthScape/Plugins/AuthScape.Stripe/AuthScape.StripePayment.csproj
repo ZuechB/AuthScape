@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>AuthScape.StripePayment</PackageId>
+    <Version>1.0.18</Version>
+    <Authors>ZuechB</Authors>
+    <Company>ZuechB</Company>
+    <Product>AuthScape.SendGrid</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreBackpack" Version="1.0.35" />
+    <PackageReference Include="OpenIddict.Validation" Version="3.1.1" />
+    <PackageReference Include="OpenIddict.Validation.AspNetCore" Version="3.1.1" />
+    <PackageReference Include="Stripe.net" Version="39.126.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AuthScape.Models\AuthScape.Models.csproj" />
+    <ProjectReference Include="..\..\AuthScape.Services\AuthScape.Services.csproj" />
+    <ProjectReference Include="..\..\Services.Database\Services.Database.csproj" />
+  </ItemGroup>
+
+</Project>

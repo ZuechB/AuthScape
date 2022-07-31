@@ -1,0 +1,37 @@
+{
+  "name": "authscape",
+  "version": "1.0.92",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/babel src --out-file index.js"
+  },
+  "author": "zuechb",
+  "license": "ISC",
+  "peerDependencies": {
+    "axios": "^0.27.2",
+    "js-file-download": "^0.4.12",
+    "next": "^12.2.0",
+    "nookies": "^2.5.2",
+    "react": "^17.0.2",
+    "react-data-table-component": "^7.5.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "js-file-download": "^0.4.12",
+    "next": "^12.2.0",
+    "nookies": "^2.5.2",
+    "query-string": "^7.1.1",
+    "react-data-table-component": "^7.5.2"
+  }
+}
