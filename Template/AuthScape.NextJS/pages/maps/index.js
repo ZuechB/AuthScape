@@ -22,7 +22,7 @@ export default function Maps() {
     Basic Example (with overlay)
     <Box sx={{ flexGrow: 1, height:400 }}>
       <GoogleMaps 
-        apiKey={"AIzaSyDD4_fQOh_gmOjfE3qcZbJmu3fLSAiOaX0"}
+        apiKey={"google maps key"}
         hasLoaded={true}>
 
           <Overview lat={38} lng={-98}>
@@ -40,7 +40,7 @@ export default function Maps() {
     HeatMap Example
     <Box sx={{ flexGrow: 1, height:400 }}>
       <GoogleMapsHeatmap 
-        apiKey={"AIzaSyDD4_fQOh_gmOjfE3qcZbJmu3fLSAiOaX0"}
+        apiKey={"google maps key"}
         data={heatMapData}
         overlay={(point) => {
 
