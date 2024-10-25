@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>AuthScape.Analytics</PackageId>
+    <Title>AuthScape.Analytics</Title>
+    <Version>1.2.166</Version>
+    <Company>ZuechB</Company>
+    <Authors>ZuechB</Authors>
+    <Product>AuthScape.Analytics</Product>
+	<IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Services.Database\Services.Database.csproj" />
+    <ProjectReference Include="..\..\..\Services\Services.csproj" />
+    <ProjectReference Include="..\..\AuthScape.Analytics.Models\AuthScape.Analytics.Models.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,26 @@
+{
+  "name": "authscape-tickets",
+  "version": "1.0.16",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx babel src --out-file index.js"
+  },
+  "author": "zuechb",
+  "license": "ISC",
+  "peerDependencies": {
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.22.1",
+    "@babel/preset-env": "^7.22.2",
+    "@babel/preset-react": "^7.0.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "eslint-config-next": "^14.1.0",
+    "react": "^18.2.0"
+  }
+}

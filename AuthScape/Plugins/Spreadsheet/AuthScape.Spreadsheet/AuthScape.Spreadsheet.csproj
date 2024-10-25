@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.2.166</Version>
+    <PackageId>AuthScape.Spreadsheet</PackageId>
+    <Title>AuthScape.Spreadsheet</Title>
+    <Authors>ZuechB</Authors>
+    <Company>ZuechB</Company>
+    <Product>AuthScape.Spreadsheet</Product>
+	<IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AuthScape.Spreadsheet.Models\AuthScape.Spreadsheet.Models.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AuthScape.Models\AuthScape.Models.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.PrivateLabel.Models\AuthScape.PrivateLabel.Models.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.UserManagementSystem.Models\AuthScape.UserManageSystem.Models.csproj" />
+    <ProjectReference Include="..\Plugins\Mapping\AuthScape.Document.Mapping.Models\AuthScape.Document.Mapping.Models.csproj" />
+    <ProjectReference Include="..\Plugins\NodeService\AuthScape.NodeService.Models\AuthScape.Flows.Models.csproj" />
+    <ProjectReference Include="..\Plugins\Spreadsheet\AuthScape.Spreadsheet\AuthScape.Spreadsheet.csproj" />
+  </ItemGroup>
+
+</Project>

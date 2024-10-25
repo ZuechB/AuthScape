@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>AuthScape.Document.Mapping</PackageId>
+    <Version>1.2.166</Version>
+    <Authors>ZuechB</Authors>
+    <Company>ZuechB</Company>
+    <Product>AuthScape.Document.Mapping</Product>
+	<Description>Available soon</Description>
+    <Title>AuthScape.Document.Mapping</Title>
+    <OutputType>Library</OutputType>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.AI.FormRecognizer" Version="4.1.0" />
+    <PackageReference Include="ClosedXML" Version="0.104.1" />
+    <PackageReference Include="CoreBackpack" Version="1.0.40" />
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
+    <PackageReference Include="OpenAI" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Models\Models.csproj" />
+    <ProjectReference Include="..\..\Services.Database\Services.Database.csproj" />
+    <ProjectReference Include="..\..\Services\Services.csproj" />
+    <ProjectReference Include="..\AuthScape.ChatGPT\AuthScape.OpenAI.csproj" />
+    <ProjectReference Include="..\Mapping\AuthScape.Document.Mapping.Models\AuthScape.Document.Mapping.Models.csproj" />
+    <ProjectReference Include="..\Spreadsheet\AuthScape.Spreadsheet\AuthScape.Spreadsheet.csproj" />
+  </ItemGroup>
+
+</Project>

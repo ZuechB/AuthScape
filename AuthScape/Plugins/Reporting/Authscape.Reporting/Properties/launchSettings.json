@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Authscape.Reporting": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51647;http://localhost:51648"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>AuthScape.StripePayment</PackageId>
+    <Version>1.2.166</Version>
+    <Authors>ZuechB</Authors>
+    <Company>ZuechB</Company>
+    <Product>AuthScape.StripePayment</Product>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreBackpack" Version="1.0.40" />
+    <PackageReference Include="OpenIddict.Validation" Version="5.8.0" />
+    <PackageReference Include="OpenIddict.Validation.AspNetCore" Version="5.8.0" />
+    <PackageReference Include="Stripe.net" Version="46.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AuthScape.Models\AuthScape.Models.csproj" />
+    <ProjectReference Include="..\..\AuthScape.Services\AuthScape.Services.csproj" />
+    <ProjectReference Include="..\..\Services.Database\Services.Database.csproj" />
+  </ItemGroup>
+
+</Project>

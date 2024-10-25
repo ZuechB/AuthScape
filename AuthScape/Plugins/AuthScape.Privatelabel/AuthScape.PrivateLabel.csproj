@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>1.2.166</Version>
+    <Authors>ZuechB</Authors>
+    <Company>ZuechB</Company>
+    <Product>AuthScape.PrivateLabel</Product>
+    <PackageId>AuthScape.PrivateLabel</PackageId>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>AuthScape.PrivateLabel</Title>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Authsome" Version="1.0.8" />
+    <PackageReference Include="NUglify" Version="1.21.9" />
+    <PackageReference Include="Scryber.Core.OpenType" Version="6.0.0.5-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Models\Models.csproj" />
+    <ProjectReference Include="..\..\Services\Services.csproj" />
+    <ProjectReference Include="..\AuthScape.AzureCloudService\AuthScape.AzureCloudService.csproj" />
+    <ProjectReference Include="..\AuthScape.PrivateLabel.Models\AuthScape.PrivateLabel.Models.csproj" />
+  </ItemGroup>
+
+</Project>

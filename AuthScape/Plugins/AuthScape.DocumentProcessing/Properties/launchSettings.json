@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "AuthScape.DocumentProcessing": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:54456;http://localhost:54457"
+    }
+  }
+}

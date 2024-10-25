@@ -1,0 +1,75 @@
+﻿@model Models.Invite.InviteViewModel
+
+@{ ViewData["Title"] = "Invite"; }
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form asp-controller="Invite" asp-action="AccountCreated" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="login100-form validate-form" role="form">
+
+                <span class="login100-form-title p-b-26">
+                    Welcome @(!String.IsNullOrWhiteSpace(Model.CompanyName) ? (" to " + Model.CompanyName) : "") @(!String.IsNullOrWhiteSpace(Model.LocationName) ? (" - " + Model.LocationName) : "")
+                </span>
+
+                <div style="margin-bottom:20px;">
+                    <small>
+                        Your are just a few seconds away from joining your team at @(Model.CompanyName).
+                    </small>
+                </div>
+
+                <input asp-for="ResetToken" type="hidden" />
+                <input id="hiddenTimeZone" asp-for="TimeZone" type="hidden" />
+                <input id="Id" asp-for="Id" type="hidden" />
+
+                <div class="wrap-input100 validate-input" data-validate="Enter First Name">
+                    <input asp-for="FirstName" class="input100" placeholder="First Name" />
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Enter Last Name">
+                    <input asp-for="LastName" class="input100" placeholder="Last Name" />
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Enter password">
+                    <span class="btn-show-pass">
+                        <i class="zmdi zmdi-eye"></i>
+                    </span>
+                    <input asp-for="Password" type="password" class="input100" placeholder="Password" />
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Enter password">
+                    <span class="btn-show-pass">
+                        <i class="zmdi zmdi-eye"></i>
+                    </span>
+                    <input asp-for="ConfirmPassword" type="password" class="input100" placeholder="Confirm Password" />
+                </div>
+
+                <div asp-validation-summary="All" class="text-danger">
+
+                    @(Model.ErrorMessage)
+
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("#hiddenTimeZone").val(Intl.DateTimeFormat().resolvedOptions().timeZone);
+        })
+
+    </script>
+}

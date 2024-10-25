@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "StandardRun",
+    "Projects": [
+      {
+        "Name": "API\\API.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "IDP\\IDP.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      }
+    ]
+  }
+]

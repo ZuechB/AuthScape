@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <UserSecretsId>62d55b37-0295-4b5e-913c-37a06bac2f75</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
+    <PackageReference Include="OpenIddict" Version="5.8.0" />
+    <PackageReference Include="OpenIddict.AspNetCore" Version="5.8.0" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="5.8.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AuthScape.Controllers\AuthScape.Controllers.csproj" />
+    <ProjectReference Include="..\AuthScape.Logging\AuthScape.Logging.csproj" />
+    <ProjectReference Include="..\AuthScape.ReadMail\AuthScape.ReadMail.csproj" />
+    <ProjectReference Include="..\AuthScape.Services\AuthScape.Services.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.Analytics\AuthScape.Analytics\AuthScape.Analytics.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.AzureCloudService\AuthScape.AzureCloudService.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.ChatGPT\AuthScape.OpenAI.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.Document.Mapping\AuthScape.Document.Mapping.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.DocumentProcessing\AuthScape.Document.csproj" />
+    <ProjectReference Include="..\Plugins\Authscape.IdentityServer\Authscape.IdentityServer.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.Invoice\AuthScape.Invoice.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.Kanban\AuthScape.Kanban\AuthScape.Kanban.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.NodeService\AuthScape.Flows.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.Privatelabel\AuthScape.PrivateLabel.csproj" />
+    <ProjectReference Include="..\Plugins\AuthScape.StripePayment.Controller\AuthScape.StripePayment.Controller.csproj" />
+    <ProjectReference Include="..\Plugins\ContentManagement\AuthScape.ContentManagement\AuthScape.ContentManagement.csproj" />
+    <ProjectReference Include="..\Plugins\LuceneSearchService\AuthScape.LuceneSearch.csproj" />
+    <ProjectReference Include="..\Plugins\Reporting\Authscape.Reporting\Authscape.Reporting.csproj" />
+    <ProjectReference Include="..\Plugins\SendGrid\SendGridService\AuthScape.SendGrid.csproj" />
+    <ProjectReference Include="..\Plugins\Spreadsheet\AuthScape.Spreadsheet.Controller\AuthScape.Spreadsheet.Controller.csproj" />
+    <ProjectReference Include="..\Plugins\Spreadsheet\AuthScape.Spreadsheet.Models\AuthScape.Spreadsheet.Models.csproj" />
+    <ProjectReference Include="..\Plugins\Spreadsheet\AuthScape.Spreadsheet\AuthScape.Spreadsheet.csproj" />
+    <ProjectReference Include="..\Plugins\TicketSystem\Ticket\AuthScape.TicketSystem.csproj" />
+    <ProjectReference Include="..\Plugins\UserManagement\UserManageSystem\AuthScape.UserManageSystem.csproj" />
+    <ProjectReference Include="..\Reports\Reports.csproj" />
+    <ProjectReference Include="..\Services.Database\Services.Database.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Production.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
