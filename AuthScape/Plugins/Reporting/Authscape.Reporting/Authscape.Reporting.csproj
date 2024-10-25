@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net8.0</TargetFramework>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <PackageId>Authscape.Reporting</PackageId>
+	  <Version>1.2.166</Version>
+	  <Authors>ZuechB</Authors>
+	  <Company>ZuechB</Company>
+	  <Product>Authscape.Reporting</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Services.Database\Services.Database.csproj" />
+    <ProjectReference Include="..\..\..\Services\Services.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,47 @@
+
+  
+  // colors
+  $primary-color:                     rgb(0, 242, 195);
+  $bg-color:                          #21836f;
+  $frozens-bg-color:                  #040835;
+  $shadow-color:                      #00f2c3;
+  $resize-line-color:                 rgba(62, 245, 208, 0.718);
+  $row-line-color:                    rgba(255, 255, 255, 0.2);
+  $col-line-color:                    rgba(255, 255, 255, 0.0);
+  $fillhandle-action-border-color:    rgb(0, 239, 191);
+  $cell-editor-bg-color:              white;
+  
+  //sizing
+  $row-separator-line-width:              1px !default;
+  $col-separator-line-width:              1px !default;
+  
+  $cell-padding:                          0 10px !default;
+  $cell-focus-border-width:               2px !default;
+  $celleditor-border-width:               2px !default;
+  $celleditor-padding-top:                1px !default;
+  
+  $fill-handle-area:                      10px !default;
+  $fill-handle-square:                    10px !default;
+  $fill-handle-border-width:              2px !default;
+  
+  $resize-handle-area:                    11px !default;
+  $line-size:                             2px !default;
+  
+  $partial-area-border-width:             1px !default;
+  $partial-area-selected-border-width:    1px !default;
+  
+  $context-menu-option-padding:           8px 20px 8px 15px !default;
+  
+  
+  @import "@silevis/reactgrid/styles.scss";
+  
+  
+  .reactgrid-red {
+    $primary-color: red;
+    @import "@silevis/reactgrid/styles.scss";
+  }
+  
+  .reactgrid-gold {
+    $primary-color: gold;
+    @import "@silevis/reactgrid/styles.scss";
+  }

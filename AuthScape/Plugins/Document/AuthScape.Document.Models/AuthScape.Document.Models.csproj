@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>AuthScape.Document.Models</PackageId>
+    <Title>AuthScape.Document.Models</Title>
+    <Version>1.2.166</Version>
+    <Authors>ZuechB</Authors>
+    <Company>ZuechB</Company>
+    <Product>AuthScape.Document.Models</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AuthScape.Models\AuthScape.Models.csproj" />
+  </ItemGroup>
+
+</Project>

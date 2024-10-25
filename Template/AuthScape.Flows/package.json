@@ -1,0 +1,43 @@
+{
+  "name": "sampleproject",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@dnd-kit/sortable": "^8.0.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@monaco-editor/react": "^4.6.0",
+    "@mui/icons-material": "^5.15.0",
+    "@mui/material": "^5.15.0",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.8",
+    "@mui/x-data-grid": "^6.18.2",
+    "@silevis/reactgrid": "^4.1.8",
+    "@stripe/react-stripe-js": "^1.9.0",
+    "@stripe/stripe-js": "^1.32.0",
+    "authscape": "^1.0.648",
+    "axios": "^1.6.2",
+    "draftjs-to-html": "^0.9.1",
+    "js-file-download": "^0.4.12",
+    "next": "^14.2.5",
+    "nookies": "^2.5.2",
+    "query-string": "^7.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-flow-renderer": "^10.3.17",
+    "react-pro-sidebar": "^1.1.0-alpha.1",
+    "react-querybuilder": "^7.6.1",
+    "reactflow": "^11.3.0",
+    "styled-components": "^6.1.1"
+  },
+  "devDependencies": {
+    "eslint": "8.18.0",
+    "eslint-config-next": "^13.5.6"
+  }
+}

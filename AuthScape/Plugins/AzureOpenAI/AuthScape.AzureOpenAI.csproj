@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>AuthScape.AzureOpenAI</PackageId>
+    <Title>AuthScape.AzureOpenAI</Title>
+    <Authors>ZuechB</Authors>
+    <Version>1.2.160</Version>
+    <Company>ZuechB</Company>
+    <Product>AuthScape.AzureOpenAI</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.AI.OpenAI" Version="2.0.0-beta.5" />
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
+  </ItemGroup>
+
+</Project>

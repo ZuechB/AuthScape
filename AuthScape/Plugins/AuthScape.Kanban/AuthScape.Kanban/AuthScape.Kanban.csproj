@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>AuthScape.Kanban</PackageId>
+    <Title>AuthScape.Kanban</Title>
+    <Version>1.2.166</Version>
+    <Authors>ZuechB</Authors>
+    <Company>ZuechB</Company>
+    <Product>AuthScape.Kanban</Product>
+	<IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Services.Database\Services.Database.csproj" />
+    <ProjectReference Include="..\..\..\Services\Services.csproj" />
+  </ItemGroup>
+
+</Project>
