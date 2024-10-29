@@ -47,7 +47,7 @@ namespace AuthScape.SendGrid
                 }).ToList();
             }
 
-            var emails = new List<Email>();
+            //var emails = new List<Email>();
             foreach (var to in addresses)
             {
                 if (substitutions != null)
@@ -104,7 +104,8 @@ namespace AuthScape.SendGrid
                 }
                 else
                 {
-                    emails.Add(email);
+                    responses.Add(await SendToSendGrid(email, enableTracking: enableTracking));
+                    //emails.Add(email);
                 }
             }
 
