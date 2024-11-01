@@ -1,9 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { Box } from '@mui/system';
-import { AppBar, Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Menu, TextField, Toolbar, Tooltip, Typography } from '@mui/material';
+import { AppBar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Menu, TextField, Toolbar, Tooltip, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import UploadRoundedIcon from '@mui/icons-material/UploadRounded';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { EditableDatagrid, FileUploader, AutoSaveTextField, apiService } from 'authscape';
 import Grid from '@mui/material/Grid2';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
@@ -17,7 +16,6 @@ import UserEditor from './UserEditor'; // remove when done
 import { CompanyEditor } from './CompanyEditor' // remove when done
 import { CSVUsersUpload } from './CSVUsersUpload'; // remove when done
 import { CustomFields } from './CustomFields'; // remove when done
-import { paddingTop } from '@xstyled/styled-components';
 
 
 export default function UserManagement({height = "50vh", platformType = 1, onUploadCompleted = null}) {
