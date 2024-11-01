@@ -1,7 +1,7 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useImperativeHandle, forwardRef } from 'react';
 import { Box } from '@mui/system';
 import TextField from '@mui/material/TextField';
-import { Autocomplete, Button, Grid } from '@mui/material';
+import { Autocomplete, Avatar, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -11,15 +11,23 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import { useForm, Controller } from 'react-hook-form';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import { Tab, Tabs } from '@mui/material';
 import BusinessRoundedIcon from '@mui/icons-material/BusinessRounded';
 import { apiService } from 'authscape';
+import Grid from '@mui/material/Grid2';
 
-export function UserEditor({userId = null, onSaved = null, onPasswordChanged = null}) {
+// remove when publishing
+// import {renderCustomField, renderSystemField } from './EditorFields';
+
+
+const UserEditor = forwardRef(({userId = null, platformType, onSaved = null}, ref) => {
 
   const {control, register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
+
+  const refTimeoutToken = useRef(null);
+
+  const refShouldClose = useRef(null);
+  const refSubmitButton = useRef(null);
 
   const [selectedRoles, setSelectedRole] = useState([]);
   const [selectedPermission, setSelectedPermission] = useState([]);
@@ -38,6 +46,9 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
   const [customFields, setCustomFields] = useState([]);
 
   const [user, setUser] = useState(null);
+
+  const [tabOptions, setTabOptions] = useState([]);
+
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -102,9 +113,9 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
             setLocation(response.data.location);
           }
 
-          if (response.data.userCustomFields != null)
+          if (response.data.customFields != null)
           {
-            setCustomFields(response.data.userCustomFields);
+            setCustomFields(response.data.customFields);
           }
 
           // assign all selected roles
@@ -147,137 +158,9 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
     "FirstName",
     "LastName",
     "IsActive",
-    "Email"
+    "Email",
+    "PhoneNumber"
   ]
-
-  const findTheValue = (field) => {
-
-    let result = "";
-    if (user != null)
-    {
-      Object.getOwnPropertyNames(user).forEach(element => {
-
-        if (field.toLowerCase() == element.toLowerCase())
-        {
-          result = user[element];
-        }
-
-      });
-    }
-
-    return result;
-  }
-
-  const findCustomFieldValue = (field) => {
-
-    let result = "";
-    if (user != null && user.userCustomFields)
-    {
-        user.userCustomFields.forEach(userCustomField => {
-
-            if (field.toLowerCase() == userCustomField.name.toLowerCase())
-            {
-                result = userCustomField.value;
-            }
-            
-        });
-    }
-
-    return result;
-  }
-
-  const renderCustomField = (customFields) => {
-
-    return (
-        <>
-        {(userId != -1 ? user != null : true) && customFields.map((field) => {
-
-            let result = findCustomFieldValue(field.name);
-
-            return (
-            <Grid item xs={6}>
-                <Controller name={field.customFieldId} 
-                    control={control}
-                    rules={{
-                        required: field.isRequired,
-                    }}
-                    render={({renderField}) => 
-                    <TextField
-                        label={field.name}
-                        variant="outlined"
-                        defaultValue={result}
-                        margin="normal"
-                        fullWidth
-                        {...register(field.customFieldId, { required: field.isRequired })}
-                        {...renderField}
-                    />
-                    }
-                />
-                {errors[field.name] && <Typography color={"red"}>{field.name} is required.</Typography>}
-            </Grid>
-            )
-
-        })}
-        </>
-    )
-  }
-
-  const renderSystemField = (customFields, isSystemField = false) => {
-
-    return (
-        <>
-        {(userId != -1 ? user != null : true) && customFields.map((field) => {
-
-            let result = findTheValue(field);
-
-            return (
-            <Grid item xs={6}>
-
-              {field == "IsActive" &&
-                  <Box>
-                  <Controller name={field} 
-                      control={control}
-                      rules={{
-                          required: false,
-                      }}
-                      render={({renderField}) => 
-                      <FormControlLabel control={<Switch defaultChecked={result} />} label={field} {...register(field, { required: false })} {...renderField} />
-                      }
-                  />
-                  {errors[field] && <Typography color={"red"}>{field} is required.</Typography>}
-
-                  </Box>
-              }
-
-              {field != "IsActive" &&
-              <Box>
-                  <Controller name={field} 
-                      control={control}
-                      rules={{
-                          required: true,
-                      }}
-                      render={({renderField}) => 
-                      <TextField
-                          label={field}
-                          variant="outlined"
-                          defaultValue={result}
-                          margin="normal"
-                          fullWidth
-                          {...register(field, { required: true })}
-                          {...renderField}
-                      />
-                      }
-                  />
-                  {errors[field] && <Typography color={"red"}>{field} is required.</Typography>}
-              </Box>
-              }
-            </Grid>
-            )
-
-        })}
-        </>
-    )
-  }
 
   function a11yProps(index) {
     return {
@@ -286,38 +169,47 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
     };
   }
 
+  const refreshTabOptions = async () => {
+      const customTabResponse = await apiService().get("/UserManagement/GetCustomTabs?platformType=" + platformType);
+      if (customTabResponse != null && customTabResponse.status == 200)
+      {
+          let dataElement = customTabResponse.data; 
+          setTabOptions(dataElement);
+
+          if (dataElement.length > 0)
+          {
+            setTabValue(dataElement[0].id);
+          }
+      }
+  }
+
 
   useEffect(() => {
 
     const fetchData = async () => {
 
-      if (inputCompanyValue == null || inputCompanyValue == "")
-      {
-        let response = await apiService().get("/UserManagement/GetCompanies");
-        if (response != null && response.status == 200)
+        const response2 = await apiService().get("/UserManagement/GetCompanies?name=" + inputCompanyValue);
+        if (response2 != null && response2.status == 200)
         {
-          setCompanies(response.data);
+          setCompanies(response2.data);
         }
-      }
-      else
-      {
-        let response = await apiService().get("/UserManagement/GetCompanies?name=" + inputCompanyValue);
-        if (response != null && response.status == 200)
-        {
-          setCompanies(response.data);
-        }
-      }
 
+        await refreshTabOptions();
     }
 
-    if (user != null || userId == -1)
-    {
+    // sets a delay so the user can type
+    clearTimeout(refTimeoutToken.current)
+    refTimeoutToken.current = setTimeout(() => {
+
+      clearTimeout(refTimeoutToken.current)
+
       fetchData();
-    }
 
-  }, [user, userId, inputCompanyValue])
+    }, 1000);
+    
 
-  
+  }, [inputCompanyValue])
+
 
   useEffect(() => {
 
@@ -351,8 +243,21 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
 
   }, [user, userId, inputLocationValue, company])
 
+
+  const saveChanges = (shouldClose) => {
+    refShouldClose.current = shouldClose;
+    refSubmitButton.current.click();
+  }
+
+
+  useImperativeHandle(ref, () => ({
+    saveChanges,
+  }));
+
+
+
   return (
-      <Box sx={{paddingTop:0, minWidth: 600}}>
+      <Box>
 
           <form onSubmit={handleSubmit(async (data) => {
             
@@ -360,13 +265,18 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
 
             customFields && customFields.forEach(customField => {
 
+              let newValue = data[customField.customFieldId];
+              if (newValue != null)
+              {
                 userCustomFields.push({
                     customFieldId: customField.customFieldId,
                     name: customField.name,
                     isRequired: customField.isRequired,
                     customFieldType: customField.customFieldType,
-                    value: data[customField.customFieldId] 
+                    value: newValue.toString()
                 });
+              }
+                
             });
 
             let response = await apiService().put("/UserManagement/UpdateUser", {
@@ -379,45 +289,37 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
                 isActive: data.IsActive,
                 roles: selectedRoles != "" ? selectedRoles : null,
                 permissions: selectedPermission != "" ? selectedPermission : null,
-                userCustomFields: userCustomFields
+                customFields: userCustomFields
             });
 
             if (response != null && response.status == 200)
             {
                 if (onSaved != null)
                 {
-                    onSaved();
+                    onSaved(refShouldClose.current);
                 }
             }
 
           })} noValidate autoComplete="off">
+            
+            <Grid container spacing={2} sx={{paddingTop:2}}>
+              <Grid size={3} sx={{backgroundColor:"#f5f8fa", borderRadius:2, border: "1px solid lightgray", padding:2}}>
+                <Box sx={{textAlign:"center", display:"flex", justifyContent:"center", padding:2 }}>
+                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"  sx={{ width: 100, height: 100 }} />
+                </Box>
 
-            <Box>
-              <Box>
-              <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth" aria-label="basic tabs example" centered>
-                  <Tab label="Information" {...a11yProps(0)} />
-                  <Tab label="Company & Locations" {...a11yProps(1)} />
-                  <Tab label="Roles & Permissions" {...a11yProps(2)} />
-                  <Tab label="Authentication & Authorization" {...a11yProps(3)} />
-              </Tabs>
-              </Box>
+                <hr />
+                <Box sx={{fontWeight:"bold", paddingBottom: 1}}>
+                  About this contact
+                </Box>
 
-              {tabValue === 0 &&
-                <Grid spacing={2} sx={{paddingLeft:2, paddingRight:2, paddingTop:2}}>
+                {renderSystemField(userId, user, control, errors, register, fields)}
 
-                  {renderSystemField(fields)}
-                  
-                  {customFields != null &&
-                    <>
-                      {renderCustomField(customFields)}
-                    </>
-                  }
-                </Grid>
-              }
+                <Box sx={{fontWeight:"bold", paddingTop:1, paddingBottom: 1}}>
+                  Companies and Locations
+                </Box>
 
-              {tabValue === 1 &&
-                <Grid spacing={2} sx={{paddingLeft:2, paddingRight:2, paddingTop:2}}>
-
+                <Box>
                   <Autocomplete
                     id="companySelect"
                     sx={{paddingTop:2}}
@@ -430,14 +332,15 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
                     includeInputInList
                     filterSelectedOptions
                     value={company}
-                    noOptionsText="No locations"
+                    noOptionsText="No companies"
                     onChange={(event, newValue) => {
-                      setCompanies(newValue ? [newValue, ...companies] : companies);
+                      //setCompanies(newValue ? [newValue, ...companies] : companies);
                       setCompany(newValue);
                       setLocation(null);
                     }}
                     onInputChange={(event, newInputValue) => {
                       setInputCompanyValue(newInputValue);
+                      setLocation(null);
                     }}
                     renderInput={(params) => (
                       <TextField {...params} label="Company" fullWidth />
@@ -451,8 +354,9 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
                       //   matches.map((match) => [match.offset, match.offset + match.length]),
                       // );
 
+
                       return (
-                        <li {...props}>
+                        <li {...props} key={"company-" + props.id} >
                           <Grid container alignItems="center">
                             <Grid item sx={{ display: 'flex', width: 44 }}>
                               <BusinessRoundedIcon sx={{ color: 'text.secondary' }} />
@@ -495,7 +399,7 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
                       setLocation(newValue);
                     }}
                     onInputChange={(event, newInputValue) => {
-                      setInputCompanyValue(newInputValue);
+                      //setInputCompanyValue(newInputValue);
                     }}
                     renderInput={(params) => (
                       <TextField {...params} label="Location" fullWidth />
@@ -506,7 +410,7 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
                         <li {...props}>
                           <Grid container alignItems="center">
                             <Grid item sx={{ display: 'flex', width: 44 }}>
-                              <BusinessRounded sx={{ color: 'text.secondary' }} />
+                              <BusinessRoundedIcon sx={{ color: 'text.secondary' }} />
                             </Grid>
                             <Grid item sx={{ width: 'calc(100% - 44px)', wordWrap: 'break-word' }}>
                               <Typography variant="body2" color="text.secondary">
@@ -518,150 +422,126 @@ export function UserEditor({userId = null, onSaved = null, onPasswordChanged = n
                       );
                     }}
                   />
-                  
-                </Grid>
-              }
+                </Box>
 
-              {tabValue === 2 &&
-                <Box sx={{paddingLeft:2, paddingRight:2, paddingTop:2}}>
+                <Box sx={{fontWeight:"bold", paddingTop:2}}>
+                  Roles and Permissions
+                </Box>
 
-                  <FormControl sx={{ paddingTop:1, m: 1, width: "100%" }}>
-                      <InputLabel id="demo-multiple-checkbox-label">Roles</InputLabel>
-                      <Select
-                          fullWidth={true}
-                          labelId="demo-multiple-checkbox-label"
-                          id="demo-multiple-checkbox"
-                          {...register("roles", { required: false })}
-                          multiple
-                          value={selectedRoles}
-                          onChange={(event) => {
+                <Box>
+
+                    <FormControl sx={{ marginTop:3, width: "100%" }}>
+                        <InputLabel id="demo-multiple-checkbox-label">Roles</InputLabel>
+                        <Select
+                            fullWidth={true}
+                            labelId="demo-multiple-checkbox-label"
+                            id="demo-multiple-checkbox"
+                            {...register("roles", { required: false })}
+                            multiple
+                            value={selectedRoles}
+                            onChange={(event) => {
+
+                            const {
+                                target: { value },
+                            } = event;
+                            setSelectedRole(
+                                // On autofill we get a stringified value.
+                                typeof value === 'string' ? value.split(',') : value,
+                            );
+                                
+                            }}
+                            input={<OutlinedInput label="Roles" />}
+                            renderValue={(selected) => selected.join(', ')}
+                            MenuProps={MenuProps}>
+                            {roles.map((role) => (
+                                <MenuItem key={role.name} value={role.name}>
+                                <Checkbox checked={selectedRoles.indexOf(role.name) > -1} />
+                                <ListItemText primary={role.name} /> 
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    {errors.roles && <Typography color={"red"}>{"roles"} is required.</Typography>}
+                    
+
+                    <FormControl sx={{ marginTop:3, width: "100%" }}>
+                        <InputLabel id="demo-multiple-checkbox-label">Permissions</InputLabel>
+                        <Select
+                        fullWidth={true}
+                        labelId="demo-multiple-checkbox-label"
+                        id="demo-multiple-checkbox"
+                        {...register("permissions", { required: false })}
+                        multiple
+                        value={selectedPermission}
+                        onChange={(event) => {
 
                           const {
-                              target: { value },
+                            target: { value },
                           } = event;
-                          setSelectedRole(
-                              // On autofill we get a stringified value.
-                              typeof value === 'string' ? value.split(',') : value,
+                          setSelectedPermission(
+                            // On autofill we get a stringified value.
+                            typeof value === 'string' ? value.split(',') : value,
                           );
-                              
-                          }}
-                          input={<OutlinedInput label="Roles" />}
-                          renderValue={(selected) => selected.join(', ')}
-                          MenuProps={MenuProps}>
-                          {roles.map((role) => (
-                              <MenuItem key={role.name} value={role.name}>
-                              <Checkbox checked={selectedRoles.indexOf(role.name) > -1} />
-                              <ListItemText primary={role.name} /> 
-                              </MenuItem>
-                          ))}
-                      </Select>
-                  </FormControl>
-                  {errors.roles && <Typography color={"red"}>{"roles"} is required.</Typography>}
-                  
 
-                  <FormControl sx={{ m: 1, paddingTop:1, width: "100%" }}>
-                      <InputLabel id="demo-multiple-checkbox-label">Permissions</InputLabel>
-                      <Select
-                      fullWidth={true}
-                      labelId="demo-multiple-checkbox-label"
-                      id="demo-multiple-checkbox"
-                      MenuProps={MenuProps}
-                      {...register("permissions", { required: false })}
-                      multiple
-                      value={selectedPermission}
-                      onChange={(event) => {
-
-                        const {
-                          target: { value },
-                        } = event;
-                        setSelectedPermission(
-                          // On autofill we get a stringified value.
-                          typeof value === 'string' ? value.split(',') : value,
-                        );
-
-                      }}
-                      input={<OutlinedInput label="Roles" />}
-                      renderValue={(selected) => selected.join(', ')}
-                      MenuProps={MenuProps}>
-                      {permissions.map((permission) => (
-                          <MenuItem key={permission.name} value={permission.name}>
-                            <Checkbox checked={selectedPermission.indexOf(permission.name) > -1} />
-                            <ListItemText primary={permission.name} /> 
-                          </MenuItem>
-                      ))}
-                      </Select>
-                  </FormControl>
-                  {errors.permissions && <Typography color={"red"}>{"permissions"} is required.</Typography>}
+                        }}
+                        input={<OutlinedInput label="Roles" />}
+                        renderValue={(selected) => selected.join(', ')}
+                        MenuProps={MenuProps}>
+                        {permissions.map((permission) => (
+                            <MenuItem key={permission.name} value={permission.name}>
+                              <Checkbox checked={selectedPermission.indexOf(permission.name) > -1} />
+                              <ListItemText primary={permission.name} /> 
+                            </MenuItem>
+                        ))}
+                        </Select>
+                    </FormControl>
+                    {errors.permissions && <Typography color={"red"}>{"permissions"} is required.</Typography>}
 
                 </Box>
-              }
+            
 
-              {tabValue === 3 &&
-                <Box sx={{paddingLeft:2, paddingRight:2, paddingTop:2}}>
+              </Grid>
+              <Grid size={9}>
+
+                <Box>
+                  <Box>
+                  <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth" aria-label="basic tabs example" centered>
+                    {tabOptions.map((tab, index) => {
+                      return (
+                        <Tab label={tab.name} value={tab.id} />
+                      )
+                    })}
+                  </Tabs>
+                  </Box>
                   
-                  <Box sx={{paddingTop:2}}>
-                    <TextField id="txtNewPassword" label="New Password" variant="outlined" fullWidth={true} onChange={(val) => {
-                        setNewPassword(val.currentTarget.value);
-                    }} />
-                  </Box>
-                  <Box sx={{paddingTop:2}}>
-                    <TextField id="txtConfirmPassword" label="Confirm Password" variant="outlined" fullWidth={true} onChange={(val) => {
-                        setConfirmPassword(val.currentTarget.value);
-                    }} />
+                  <Grid container spacing={1} sx={{paddingLeft:2, paddingRight:2, paddingTop:2}}>
 
-                    {newPassword !== confirmPassword &&
-                      <Typography color={"red"}>{"New Password and Confirm Password"} does not match.</Typography>
-                    }
-
-                  </Box>
-                  <Box sx={{paddingTop:2}}>
-                    <Button variant="contained" type="button" onClick={async () => {
-
-                      if (newPassword != null && confirmPassword != null && confirmPassword != "" && newPassword != "")
-                      {
-                        let response = await apiService().put("/UserManagement/ChangeUserPassword", {
-                          userId: userId,
-                          password: newPassword
-                        });
-
-                        if (onPasswordChanged != null)
-                        {
-                          onPasswordChanged(response);
+                    {tabOptions.map((tab, index) => {
+                      return (
+                        <>
+                        {tabValue === tab.id && 
+                          <>
+                            {customFields != null &&
+                              <>
+                                {renderCustomField(userId, user, control, errors, register, setValue, customFields.filter(s => s.tabId == tab.id))}
+                              </>
+                            }
+                          </>
                         }
-                        // if (response != null && response.status == 200)
-                        // {
-                        //   if (response.data == null)
-                        //   {
-                            
-                        //   }
-                        //   else
-                        //   {
+                        </>
+                      )
+                    })}
 
-                        //   }
-
-                        //   alert("Password Changed!");
-                        // }
-                        // else
-                        // {
-                        //   alert(JSON.stringify(response.data.error));
-                        // }
-                        
-                      }
-
-                    }}>{"Change Password"}</Button>
-                  </Box>
-
+                      <Button ref={refSubmitButton} variant="contained" type="submit" sx={{display:"none"}}>Save Changes</Button>
+                  </Grid>
                 </Box>
-              }
-
-              {(tabValue == 0 || tabValue == 1 || tabValue == 2) &&
-                <Box sx={{paddingTop:1, paddingBottom: 4, paddingLeft: 2}}>
-                  <Button variant="contained" type="submit">{userId == -1 ? "Create Account" : "Update Account"}</Button>
-                </Box>
-              }
-
-            </Box>
+              </Grid>
+            </Grid>
           </form>
       </Box>
   )
-}
+});
+
+UserEditor.displayName = "UserEditor";
+
+export default UserEditor;
