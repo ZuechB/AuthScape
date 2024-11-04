@@ -98,9 +98,9 @@ namespace AuthScape.Document.Mapping.Services
             await CommitChanges(false, loadedObjects, documentComponent);
         }
 
-        public async Task<List<object>> Execute(long companyId, long documentComponentId, bool isTraining = false, bool isPreview = false)
+        public async Task<List<object>> Execute(long companyId, string container, string baseUri, long documentComponentId, bool isTraining = false, bool isPreview = false)
         {
-            const string baseUrl = "https://containername.blob.core.windows.net/mapping/"; // this will change soon!
+            string baseUrl = baseUri + "/" + container + "/"; // this will change soon!
 
             var documentComponent = await databaseContext.DocumentComponents
                 .Include(d => d.DocumentType)

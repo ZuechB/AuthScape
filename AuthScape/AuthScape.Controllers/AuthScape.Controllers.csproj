@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>1.2.180</Version>
+    <Version>1.2.186</Version>
     <Product>AuthScape.Controller</Product>
     <Company>ZuechB</Company>
     <Authors>ZuechB</Authors>
