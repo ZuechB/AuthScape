@@ -443,7 +443,8 @@ namespace AuthScape.Document.Mapping.Services
 
             // we are going to attempt to train the document here...
             var dynamicMapping = new DynamicTableMapping(databaseContext, fileMappingService, formRecognizerService);
-            await dynamicMapping.Execute(companyId, newDocComponent.Id, true);
+            await dynamicMapping.Execute(companyId, appSettings.Mapping.Container, appSettings.Mapping.BaseUri, newDocComponent.Id, true);
+
 
 
             return new DocumentComponent()
@@ -1825,7 +1826,7 @@ namespace AuthScape.Document.Mapping.Services
 
                         // we will need to move this to a cron system that is queued... If two documents upload at the same time we could have a data issue....
                         var executeDynamicMapping = new DynamicTableMapping(databaseContext, fileMappingService, formRecognizerService);
-                        await executeDynamicMapping.Execute(companyId, documentId);
+                        await executeDynamicMapping.Execute(companyId, appSettings.Mapping.Container, appSettings.Mapping.BaseUri, documentId);
 
 
                         document = await databaseContext.DocumentComponents
@@ -1876,7 +1877,7 @@ namespace AuthScape.Document.Mapping.Services
 
             // we will need to handle each file type at this stage....
             var dynamicMapping = new DynamicTableMapping(databaseContext, fileMappingService, formRecognizerService);
-            var elements = await dynamicMapping.Execute(companyId, documentComponentId, false, true);
+            var elements = await dynamicMapping.Execute(companyId, appSettings.Mapping.Container, appSettings.Mapping.BaseUri, documentComponentId, false, true);
 
             bool isFirst = true;
 
