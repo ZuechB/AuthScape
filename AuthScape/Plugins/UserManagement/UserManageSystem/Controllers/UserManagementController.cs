@@ -33,7 +33,7 @@ namespace AuthScape.UserManageSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> GetUsers(GetUsersParam param)
         {
-            var users = await userManagementSystemService.GetUsers(param.offset, param.length, param.searchByName);
+            var users = await userManagementSystemService.GetUsers(param.offset, param.length, param.searchByName, param.searchByCompanyId, param.searchByRoleId);
 
             return Ok(new ReactDataTable()
             {
@@ -332,6 +332,9 @@ namespace AuthScape.UserManageSystem.Controllers
         public int offset { get; set; }
         public int length { get; set; }
         public string? searchByName { get; set; }
+
+        public long? searchByCompanyId { get; set; }
+        public long? searchByRoleId { get; set; }
     }
 
     public class UserManagementUploadField

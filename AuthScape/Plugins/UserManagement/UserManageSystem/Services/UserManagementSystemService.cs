@@ -20,7 +20,7 @@ namespace AuthScape.UserManageSystem.Services
         Task AssignUserToRole(long roleId, long userId);
         Task RemoveUserFromRole(long roleId, long userId);
         Task<List<IdentityUserClaim<long>>> GetClaims(long userId);
-        Task<PagedList<AppUser>> GetUsers(int offset, int length, string? searchByName = null);
+        Task<PagedList<AppUser>> GetUsers(int offset, int length, string? searchByName = null, long? searchByCompanyId = null, long? searchByRoleId = null);
         Task AddPermission(string permissionName);
         Task<List<Permission>> GetPermissions();
         Task<UserEditResult?> GetUser(long userId);
@@ -136,6 +136,7 @@ namespace AuthScape.UserManageSystem.Services
             var companyQuery = databaseContext.Companies
                 .Include(c => c.Users)
                 .Include(c => c.Locations)
+                .Where(c => !c.IsDeactivated)
                 .Select(c => new CompanyDataGrid() {
                 Id = c.Id,
                 Logo = c.Logo,
@@ -158,37 +159,55 @@ namespace AuthScape.UserManageSystem.Services
             return companies;
         }
 
-        public async Task<PagedList<AppUser>> GetUsers(int offset, int length, string? searchByName = null)
+        public async Task<PagedList<AppUser>> GetUsers(int offset, int length, string? searchByName = null, long? searchByCompanyId = null, long? searchByRoleId = null)
         {
             var signedInUser = await userManagementService.GetSignedInUser();
 
             var usersQuery = databaseContext.Users
                 .AsNoTracking()
                 .Include(u => u.Company)
-                .Select(u => new AppUser()
-                {
-                    Id = u.Id,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    UserName = u.UserName,
-                    IsActive = u.IsActive,
-                    PhoneNumber = u.PhoneNumber,
-                    Company = new Company()
-                    {
-                        Title = u.Company != null ? u.Company.Title : ""
-                    },
-                    Location = new Location()
-                    {
-                        Title = u.Location != null ? u.Location.Title : ""
-                    }
-                });
+                .Where(u => u.IsActive)
+                .AsQueryable();
+                
+
+
+            if (searchByCompanyId != null)
+            {
+                usersQuery = usersQuery.Where(u => u.CompanyId == searchByCompanyId.Value);
+            }
+
+            if (searchByRoleId != null)
+            {
+                usersQuery = usersQuery.Where(z => databaseContext.UserRoles.Where(u => u.RoleId == searchByRoleId.Value && u.UserId == z.Id).Any());
+            }
 
 
             if (!String.IsNullOrWhiteSpace(searchByName))
             {
                 searchByName = searchByName.ToLower();
-                usersQuery = usersQuery.Where(u => u.UserName.ToLower().Contains(searchByName) || u.FirstName.ToLower().Contains(searchByName));
+                usersQuery = usersQuery.Where(u => 
+                    u.UserName.ToLower().Contains(searchByName) || 
+                    (u.FirstName + " " + u.LastName).ToLower().Contains(searchByName));
             }
+
+
+            usersQuery = usersQuery.Select(u => new AppUser()
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                UserName = u.UserName,
+                IsActive = u.IsActive,
+                PhoneNumber = u.PhoneNumber,
+                Company = new Company()
+                {
+                    Title = u.Company != null ? u.Company.Title : ""
+                },
+                Location = new Location()
+                {
+                    Title = u.Location != null ? u.Location.Title : ""
+                }
+            });
 
 
             var users = await usersQuery

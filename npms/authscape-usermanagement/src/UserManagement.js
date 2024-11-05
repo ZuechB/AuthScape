@@ -10,6 +10,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import PasswordRoundedIcon from '@mui/icons-material/PasswordRounded';
+import Autocomplete from '@mui/material/Autocomplete';
 
 // comment this out when done
 // import UserEditor from './UserEditor'; // remove when done
@@ -26,6 +27,10 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
     const [showContactDialog, setShowContactDialog] = useState(false);
 
 
+    const [allRoles, setAllRoles] = useState([]);
+    const [allCompanies, setAllCompanies] = useState([]);
+
+
     const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
     const [newPassword, setNewPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
@@ -34,6 +39,8 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
     const [uploadUsersShowDialog, setUploadUsersShowDialog] = useState(false);
 
     const [searchByName, setSearchByName] = useState('');
+    const [searchByCompanyId, setSearchByCompanyId] = useState(null);
+    const [searchByRoleId, setSearchByRoleId] = useState(null);
 
     const userEditorRef = useRef();
 
@@ -140,6 +147,9 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
 
     const getDataGrid = () => {
 
+        getAllCompanies();
+        getAllRoles();
+
         let response = "";
         if (platformType == 1)
         {
@@ -171,6 +181,39 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
         {
             return null;
         }
+    }
+
+    const getAllCompanies = async () => {
+
+        let results = [];
+
+        let response = await apiService().get("/UserManagement/GetCompanies");
+
+        response.data.forEach(element => {
+
+            results.push({
+                label: element.title,
+                id: element.id
+            });
+        });
+
+        setAllCompanies(results);
+    }
+
+    const getAllRoles = async () => {
+
+        let results = [];
+
+        let response = await apiService().get("/UserManagement/GetRoles");
+        response.data.forEach(element => {
+
+            results.push({
+                label: element.name,
+                id: element.id
+            });
+        });
+
+        setAllRoles(results);
     }
 
     return (
@@ -313,16 +356,63 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
             </AppBar>
 
             <Box sx={{marginTop:1, padding:2, borderRadius:1, boxShadow:"0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)"}}>
-                {/* {showUserDetails == null &&
+                {showUserDetails == null &&
                     <Box sx={{paddingBottom:1}}>
-                        <AutoSaveTextField label="Search... " fullWidth={true} onChanged={(value) => {
-                            
-                            setSearchByName(value);
-                            setDataGridRefreshKey(dataGridRefreshKey + 1);
 
-                        }} />
+                        <Grid container spacing={2}>
+                            <Grid size={4}>
+                                <AutoSaveTextField label="name or email " fullWidth={true} onChanged={(value) => {
+                                
+                                    setSearchByName(value);
+                                    setDataGridRefreshKey(dataGridRefreshKey + 1);
+
+                                }} />
+                            </Grid>
+                            <Grid size={4}>
+                                <Autocomplete
+                                    disablePortal
+                                    options={allCompanies}
+                                    renderInput={(params) => <TextField {...params} label="Companies" />}
+                                    onChange={(event, newValue) => {
+
+                                        if (newValue != null)
+                                        {
+                                            setSearchByCompanyId(newValue.id);
+                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
+                                        }
+                                        else
+                                        {
+                                            setSearchByCompanyId(null);
+                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
+                                        }
+                                    }}
+                                />
+                            </Grid>
+                            <Grid size={4}>
+                                <Autocomplete
+                                    disablePortal
+                                    options={allRoles}
+                                    renderInput={(params) => <TextField {...params} label="Roles" />}
+                                    onChange={(event, newValue) => {
+
+                                        if (newValue != null)
+                                        {
+                                            setSearchByRoleId(newValue.id);
+                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
+                                        }
+                                        else
+                                        {
+                                            setSearchByRoleId(null);
+                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
+                                        }
+                                    }}
+                                />
+                            </Grid>
+                        </Grid>
+
+                        
                     </Box>
-                } */}
+                }
 
                 {!showCustomSettings &&
                 <Box>
@@ -334,7 +424,9 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
                         url={getDataGrid()} 
                         columns={getColumns()}
                         params={{
-                            searchByName: searchByName
+                            searchByName: searchByName,
+                            searchByCompanyId: searchByCompanyId,
+                            searchByRoleId: searchByRoleId,
                         }} 
                         onRowClick={(row) => {
                             setShowUserDetails(row.id);
