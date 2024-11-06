@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-// import {apiService, authService, StripeConnect, ReactDraft, EditableDatagrid, FileUploader} from 'authscape';
+import {apiService, EditableDatagrid, FileUploader} from 'authscape';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import Dialog from '@mui/material/Dialog';
@@ -19,7 +19,7 @@ import PublishRoundedIcon from '@mui/icons-material/PublishRounded';
 import Grid from '@mui/material/Grid';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 
-export function ManageMappingDocuments({fileUploadName, hideDocumentManager = false, documentTypeId = null, companyId = null, locationId = null, userId = null, onManageField = null, onArchive = null}) {
+export function MappingDocuments({fileUploadName, hideDocumentManager = false, documentTypeId = null, companyId = null, locationId = null, userId = null, onManageField = null, onArchive = null}) {
 
     const [document, setDocument] = useState(null);
     const [addColumnDialog, setAddColumnDialog] = useState(false);
