@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { Box } from '@mui/system';
-// import ManageMappingDocuments from './manageMappingDocuments';
-// import AssignMapping from './AssignMapping';
+import {MappingDocuments} from './mappingDocuments';
+import {AssignMapping} from './assignMapping';
 
 export function FileMapping({currentUser, fileUploadName = "Upload Document", hideDocumentManager = false, setIsLoading = null, documentTypeId = null, onOpened = null, onPublished = null, onCanceled = null, onArchived = null}) {
 
@@ -22,7 +22,7 @@ export function FileMapping({currentUser, fileUploadName = "Upload Document", hi
     return (
         <Box>
             {documentComponentId == null &&
-              <ManageMappingDocuments
+              <MappingDocuments
                 fileUploadName={fileUploadName}
                 documentTypeId={documentTypeId}
                 hideDocumentManager={hideDocumentManager}

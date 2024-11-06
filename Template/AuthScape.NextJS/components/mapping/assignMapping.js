@@ -1,19 +1,23 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { Box } from '@mui/system';
-// import { apiService } from 'authscape';
-// import MappedColumn from './MappedColumn';
+import { apiService } from 'authscape';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { Button, Grid } from '@mui/material';
-// import ConditionBasedTool from './conditionBasedTool';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-// import SpreadsheetViewer from '../spreadsheetViewer';
+import SpreadsheetViewer from 'authscape-spreadsheet';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import ArrowRightAltRoundedIcon from '@mui/icons-material/ArrowRightAltRounded';
+
+
+import {MappedColumn} from './mappedColumn';
+import {ConditionBasedTool} from './conditionBasedTool';
+
+
 
 export function AssignMapping({currentUser, documentComponentId, setIsLoading = null, onCancel = null, onPublished = null}) {
 
@@ -230,7 +234,6 @@ export function AssignMapping({currentUser, documentComponentId, setIsLoading = 
                 </Button>
                 </DialogActions>
             </Dialog>
-
 
         </Box>
     )

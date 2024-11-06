@@ -5,12 +5,13 @@ import CardContent from '@mui/material/CardContent';
 import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-// import NewMappingColumn from './newMappingColumn';
 import LinkIcon from '@mui/icons-material/Link';
 import LinkOffIcon from '@mui/icons-material/LinkOff';
 import Stack from '@mui/material/Stack';
-// import MatchExistingMappedColumn from './matchExisting';
-// import { apiService } from 'authscape';
+import { apiService } from 'authscape';
+
+import {NewMappingColumn} from './newMappingColumn';
+import {MatchExistingMappedColumn} from './matchExisting';
 
 export function MappedColumn({companyId, documentId, documentType, documentMappingId, name, toName, isMapped, toOptions, onResponse}) {
 

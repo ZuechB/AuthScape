@@ -1,10 +1,10 @@
 import React, {useEffect, useState, useRef} from 'react';
 import Head from 'next/head';
 import { Box } from '@mui/system';
-import FileMapping from '../../components/mapping/FileMapping';
+import {FileMapping} from '../../components/mapping/fileMapping';
 // import {FileMapping} from 'authscape';
 
-export default function Home({currentUser}) {
+const Index = ({currentUser}) => {
 
     return (
         <Box>
@@ -41,3 +41,5 @@ export default function Home({currentUser}) {
         </Box>
     )
 }
+
+export default Index;
