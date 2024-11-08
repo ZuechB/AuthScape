@@ -2,9 +2,6 @@
 using AuthScape.Models.Exceptions;
 using AuthScape.Services;
 using CoreBackpack.Time;
-using CsvHelper;
-using DocumentFormat.OpenXml.Presentation;
-using Google.Apis.Util;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Services;
@@ -44,6 +41,53 @@ namespace AuthScape.Document.Mapping.Services
             }
         }
 
+        protected void FindTypeToValue(PropertyInfo fileColumnName, FileHeader header)
+        {
+            if (fileColumnName != null)
+            {
+                if (fileColumnName.PropertyType == typeof(int))
+                {
+                    header.FileHeaderDataType = FileHeaderDataType.Integer;
+                    header.ToValue = fileColumnName;
+                }
+                if (fileColumnName.PropertyType == typeof(string))
+                {
+                    header.FileHeaderDataType = FileHeaderDataType.String;
+                    header.ToValue = fileColumnName;
+                }
+                else if (fileColumnName.PropertyType == typeof(decimal) || fileColumnName.PropertyType == typeof(decimal?))
+                {
+                    header.FileHeaderDataType = FileHeaderDataType.Decimal;
+                    header.ToValue = fileColumnName;
+                }
+                else if (fileColumnName.PropertyType == typeof(bool) || fileColumnName.PropertyType == typeof(bool?))
+                {
+                    header.FileHeaderDataType = FileHeaderDataType.Boolean;
+                    header.ToValue = fileColumnName;
+                }
+                else if (fileColumnName.PropertyType == typeof(DateTime) || fileColumnName.PropertyType == typeof(DateTime?))
+                {
+                    header.FileHeaderDataType = FileHeaderDataType.DateTime;
+                    header.ToValue = fileColumnName;
+                }
+                else if (fileColumnName.PropertyType == typeof(Guid) || fileColumnName.PropertyType == typeof(Guid?))
+                {
+                    header.FileHeaderDataType = FileHeaderDataType.Guid;
+                    header.ToValue = fileColumnName;
+                }
+                else if (fileColumnName.PropertyType == typeof(DateTimeOffset) || fileColumnName.PropertyType == typeof(DateTimeOffset?))
+                {
+                    header.FileHeaderDataType = FileHeaderDataType.DateTimeOffset;
+                    header.ToValue = fileColumnName;
+                }
+                else if (fileColumnName.PropertyType == typeof(Byte) || fileColumnName.PropertyType == typeof(Byte?))
+                {
+                    header.FileHeaderDataType = FileHeaderDataType.Byte;
+                    header.ToValue = fileColumnName;
+                }
+            }
+        }
+
         protected async Task FindHeaderMatch(long documentComponentId, List<FileHeader>? headers, PropertyInfo[] propertyInfos, long? companyId = null, long? locationId = null, long? userId = null)
         {
             foreach (var header in headers)
@@ -59,7 +103,6 @@ namespace AuthScape.Document.Mapping.Services
                         break;
                     }
                 }
-
 
                 if (documentComponentId != -1)
                 {
@@ -195,53 +238,11 @@ namespace AuthScape.Document.Mapping.Services
                     }
                 }
 
-                if (fileColumnName != null)
-                {
-                    if (fileColumnName.PropertyType == typeof(int))
-                    {
-                        header.FileHeaderDataType = FileHeaderDataType.Integer;
-                        header.ToValue = fileColumnName;
-                    }
-                    if (fileColumnName.PropertyType == typeof(string))
-                    {
-                        header.FileHeaderDataType = FileHeaderDataType.String;
-                        header.ToValue = fileColumnName;
-                    }
-                    else if (fileColumnName.PropertyType == typeof(decimal) || fileColumnName.PropertyType == typeof(decimal?))
-                    {
-                        header.FileHeaderDataType = FileHeaderDataType.Decimal;
-                        header.ToValue = fileColumnName;
-                    }
-                    else if (fileColumnName.PropertyType == typeof(bool) || fileColumnName.PropertyType == typeof(bool?))
-                    {
-                        header.FileHeaderDataType = FileHeaderDataType.Boolean;
-                        header.ToValue = fileColumnName;
-                    }
-                    else if (fileColumnName.PropertyType == typeof(DateTime) || fileColumnName.PropertyType == typeof(DateTime?))
-                    {
-                        header.FileHeaderDataType = FileHeaderDataType.DateTime;
-                        header.ToValue = fileColumnName;
-                    }
-                    else if (fileColumnName.PropertyType == typeof(Guid) || fileColumnName.PropertyType == typeof(Guid?))
-                    {
-                        header.FileHeaderDataType = FileHeaderDataType.Guid;
-                        header.ToValue = fileColumnName;
-                    }
-                    else if (fileColumnName.PropertyType == typeof(DateTimeOffset) || fileColumnName.PropertyType == typeof(DateTimeOffset?))
-                    {
-                        header.FileHeaderDataType = FileHeaderDataType.DateTimeOffset;
-                        header.ToValue = fileColumnName;
-                    }
-                    else if (fileColumnName.PropertyType == typeof(Byte) || fileColumnName.PropertyType == typeof(Byte?))
-                    {
-                        header.FileHeaderDataType = FileHeaderDataType.Byte;
-                        header.ToValue = fileColumnName;
-                    }
-                }
+                FindTypeToValue(fileColumnName, header);
             }
         }
 
-        protected async Task<bool?> CreateObjectBasedOnHeader(List<DocumentMapping> mappings, List<object> loadedObjects, DocumentComponent documentComponent, List<FileHeader> headerVals, bool IsPublishing, Func<int, FileHeaderDataType, string, string> GetValue)
+        protected async Task<bool?> CreateObjectBasedOnHeader(List<DocumentMapping> mappings, PropertyInfo[]? propertyInfos, List<object> loadedObjects, DocumentComponent documentComponent, List<FileHeader> headerVals, bool IsPublishing, Func<int, FileHeaderDataType, string, string> GetValue)
         {
             if (documentComponent == null || documentComponent.DocumentType == null || documentComponent.DocumentType.AssemblyFullName == null)
             {
@@ -255,10 +256,6 @@ namespace AuthScape.Document.Mapping.Services
             }
 
 
-
-
-
-
             // get the advance rules
             DocumentFilterForPreviewRule rules = null;
             if (!String.IsNullOrWhiteSpace(documentComponent.Rules))
@@ -269,14 +266,32 @@ namespace AuthScape.Document.Mapping.Services
             var newInstance = instance.Unwrap();
 
 
-            
-
-
             foreach (var headerVal in headerVals)
             {
                 if (headerVal.ToValue == null)
                 {
-                    continue;
+                    var matched = mappings.Where(m => m.Name.ToLower() == headerVal.Name.ToLower()).FirstOrDefault();
+                    if (matched != null && propertyInfos != null)
+                    {
+                        var propertyData = propertyInfos.Where(p => p.Name.ToLower() == matched.ToName.ToLower()).FirstOrDefault();
+                        if (propertyData != null)
+                        {
+                            FindTypeToValue(propertyData, headerVal);
+
+                            if (headerVal.ToValue == null)
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
 
                 if (newInstance != null)
