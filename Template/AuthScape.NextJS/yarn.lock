@@ -3170,10 +3170,10 @@ authscape-kanban@^1.0.28:
     eslint-config-next "^14.1.0"
     react "^18.2.0"
 
-authscape-spreadsheet@^1.0.40:
-  version "1.0.40"
-  resolved "https://registry.npmjs.org/authscape-spreadsheet/-/authscape-spreadsheet-1.0.40.tgz"
-  integrity sha512-a6LXE2TZ7HCK1WCIHxh3MmT5jgpwSDdGKIVlM1IFUK2NQcj3ST6S6HJrae50zW0LBQ5un7OO+UNkVGLH9tyllg==
+authscape-spreadsheet@^1.0.56:
+  version "1.0.56"
+  resolved "https://registry.npmjs.org/authscape-spreadsheet/-/authscape-spreadsheet-1.0.56.tgz"
+  integrity sha512-/lAq9Nt5pk4GFtdiZkgJ6xZKAzmPE//YkykOr9fei0jiWNrrtROcxLGZT5pzw04zdcEcx4yVy9cxUABWyfOhKg==
   dependencies:
     eslint-config-next "^14.1.0"
     react "^18.2.0"

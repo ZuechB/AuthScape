@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-// import {apiService, authService, StripeConnect, ReactDraft, EditableDatagrid, FileUploader} from 'authscape';
+import {apiService, authService, StripeConnect, ReactDraft, EditableDatagrid, FileUploader} from 'authscape';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded';

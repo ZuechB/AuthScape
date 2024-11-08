@@ -1,6 +1,6 @@
 
 import React, {useEffect, useState, useRef} from 'react';
-// import { apiService, FileUploader} from 'authscape';
+import { apiService, FileUploader} from 'authscape';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import Accordion from '@mui/material/Accordion';

@@ -123,7 +123,7 @@ namespace Services.Context
         #endregion
 
 
-        public DbSet<InboundSheet> InboundSheets { get; set; }
+        public DbSet<SomeSheet> SomeSheet { get; set; }
 
         //public DbSet<Sheet> Sheets { get; set; }
         public DbSet<DocumentSheet> Sheets { get; set; }
@@ -511,6 +511,16 @@ namespace Services.Context
                     .HasForeignKey(rf => rf.WalletId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
+
+
+            
+
+            builder.Entity<SomeSheet>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasDefaultValueSql("newsequentialid()");
+            });
+
 
             builder.Entity<CustomField>(entity =>
             {
