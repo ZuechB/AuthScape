@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>AuthScape.BackgroundServiceCore.Models</PackageId>
     <Title>AuthScape.BackgroundServiceCore.Models</Title>
-    <Version>1.2.188</Version>
+    <Version>1.2.190</Version>
     <Authors>ZuechB</Authors>
     <Company>ZuechB</Company>
     <Product>AuthScape.BackgroundServiceCore</Product>
