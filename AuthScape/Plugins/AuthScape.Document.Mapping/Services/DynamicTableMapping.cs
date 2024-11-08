@@ -80,7 +80,7 @@ namespace AuthScape.Document.Mapping.Services
 
             foreach (var row in PublishedRows)
             {
-                await CreateObjectBasedOnHeader(mappings, loadedObjects, documentComponent, headerVals, true, (columnNumber, header, columnName) =>
+                await CreateObjectBasedOnHeader(mappings, null, loadedObjects, documentComponent, headerVals, true, (columnNumber, header, columnName) =>
                 {
                     var cell = row.Cells
                         .Where(c => c.ColumnId.ToLower() == columnName.ToLower())
@@ -203,7 +203,7 @@ namespace AuthScape.Document.Mapping.Services
                             if (documentComponent.DocumentType.Type == DocumentTypeEnum.Database || documentComponent.DocumentType.Type == DocumentTypeEnum.CustomModel)
                             {
                                 // assign the values for the object
-                                var shouldSkip = await CreateObjectBasedOnHeader(mappings, loadedObjects, documentComponent, headerVals, false, (columnNumber, header, columnName) =>
+                                var shouldSkip = await CreateObjectBasedOnHeader(mappings, propertyInfos, loadedObjects, documentComponent, headerVals, false, (columnNumber, header, columnName) =>
                                 {
                                     return row.Cell(columnNumber).GetString();
                                 });
@@ -312,7 +312,7 @@ namespace AuthScape.Document.Mapping.Services
                         if (documentComponent.DocumentType.Type == DocumentTypeEnum.Database || documentComponent.DocumentType.Type == DocumentTypeEnum.CustomModel)
                         {
                             // assign the values for the object
-                            var shouldSkip = await CreateObjectBasedOnHeader(mappings, loadedObjects, documentComponent, headerVals, false, (columnNumber, header, columnName) =>
+                            var shouldSkip = await CreateObjectBasedOnHeader(mappings, propertyInfos, loadedObjects, documentComponent, headerVals, false, (columnNumber, header, columnName) =>
                             {
                                 var fieldValue = csv.GetField(columnNumber);
                                 if (!String.IsNullOrWhiteSpace(fieldValue))
@@ -402,7 +402,7 @@ namespace AuthScape.Document.Mapping.Services
 
             if (!isTraining)
             {
-                await CreateObjectBasedOnHeader(mappings, loadedObjects, documentComponent, headerVals, false, (columnNumber, header, columnName) =>
+                await CreateObjectBasedOnHeader(mappings, propertyInfos, loadedObjects, documentComponent, headerVals, false, (columnNumber, header, columnName) =>
                 {
                     // we are only reading one document at a time right now
                     var firstDocument = response.FormRecognizerDocument.FirstOrDefault();

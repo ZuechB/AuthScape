@@ -44,7 +44,7 @@
     "@xstyled/styled-components": "^3.8.0",
     "authscape": "^1.0.662",
     "authscape-kanban": "^1.0.28",
-    "authscape-spreadsheet": "^1.0.40",
+    "authscape-spreadsheet": "^1.0.56",
     "authscape-tickets": "^1.0.14",
     "authscape-usermanagement": "^1.0.16",
     "axios": "^1.6.2",
