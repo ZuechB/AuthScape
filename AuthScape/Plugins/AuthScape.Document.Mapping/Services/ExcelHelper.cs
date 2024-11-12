@@ -17,7 +17,7 @@ namespace AuthScape.Document.Mapping.Services
 
                 foreach (var row in range.RowsUsed())
                 {
-                    if (rowLimit != null &&  rowLimit == rowIndex)
+                    if (rowLimit != null && rowLimit == rowIndex)
                     {
                         break;
                     }
