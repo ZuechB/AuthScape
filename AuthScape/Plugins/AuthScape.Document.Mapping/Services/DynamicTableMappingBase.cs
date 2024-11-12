@@ -104,7 +104,7 @@ namespace AuthScape.Document.Mapping.Services
                     }
                 }
 
-                if (documentComponentId != -1)
+                if (documentComponentId != -1 && header.ToValue == null)
                 {
                     var foundAMatch = await databaseContext.DocumentMappings
                         .Where(d => d.DocumentComponentId == documentComponentId &&
@@ -336,7 +336,7 @@ namespace AuthScape.Document.Mapping.Services
                                     }
                                 }
                             }
-                            
+
                             break;
                         case FileHeaderDataType.Decimal:
 
@@ -378,7 +378,7 @@ namespace AuthScape.Document.Mapping.Services
                         case FileHeaderDataType.Boolean:
 
                             if (!String.IsNullOrWhiteSpace(value))
-                            { 
+                            {
                                 value = value.ToLower();
                                 if (value == "true" || value == "yes" || value == "1" || value == "1.0")
                                 {
@@ -523,8 +523,8 @@ namespace AuthScape.Document.Mapping.Services
 
                             break;
                     }
-                    
-                    
+
+
                     if (returnVal == null && headerVal.IsRequired)
                     {
                         throw new BadRequestException("Missing required field for " + headerVal.Name);
@@ -572,7 +572,7 @@ namespace AuthScape.Document.Mapping.Services
                     }
 
 
-                    
+
                 }
             }
 

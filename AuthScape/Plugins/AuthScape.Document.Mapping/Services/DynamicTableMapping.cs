@@ -21,7 +21,7 @@ namespace AuthScape.Document.Mapping.Services
         readonly DatabaseContext databaseContext;
         readonly IFileMappingService fileMappingService;
         IFormRecognizerService formRecognizerService;
-        public DynamicTableMapping(DatabaseContext databaseContext, IFileMappingService fileMappingService, IFormRecognizerService formRecognizerService) : base(databaseContext, fileMappingService,  formRecognizerService)
+        public DynamicTableMapping(DatabaseContext databaseContext, IFileMappingService fileMappingService, IFormRecognizerService formRecognizerService) : base(databaseContext, fileMappingService, formRecognizerService)
         {
             this.databaseContext = databaseContext;
             this.fileMappingService = fileMappingService;
@@ -107,8 +107,8 @@ namespace AuthScape.Document.Mapping.Services
                 .AsNoTracking()
                 .Where(d => d.Id == documentComponentId && d.CompanyId == companyId)
                 .FirstOrDefaultAsync();
-            
-            if (documentComponent != null) 
+
+            if (documentComponent != null)
             {
                 var uri = baseUrl + documentComponent.FileUri;
 

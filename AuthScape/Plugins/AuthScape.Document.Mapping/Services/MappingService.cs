@@ -108,7 +108,7 @@ namespace AuthScape.Document.Mapping.Services
         public async Task AssignMapping(long companyId, long documentId, string FileColumnName, string MatchedColumn, bool OnlyAddRowIfColumnFound, bool RememberForNextTime)
         {
             var documentMapping = await databaseContext.DocumentMappings.Where(d =>
-                    d.CompanyId == companyId && 
+                    d.CompanyId == companyId &&
                     d.DocumentComponentId == documentId &&
                     d.Name.ToLower() == FileColumnName.ToLower()
                 ).FirstOrDefaultAsync();
@@ -235,7 +235,7 @@ namespace AuthScape.Document.Mapping.Services
                         var argument = propertyInfo.PropertyType.GenericTypeArguments.FirstOrDefault();
                         if (argument != null)
                         {
-                            
+
 
                             tables.Add(new DatabaseTable()
                             {
@@ -246,7 +246,7 @@ namespace AuthScape.Document.Mapping.Services
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
 
                 }
@@ -258,8 +258,8 @@ namespace AuthScape.Document.Mapping.Services
         public async Task RemoveMatch(long companyId, long documentId, Guid documentMappingId)
         {
             var documentMapping = await databaseContext.DocumentMappings
-                .Where(d => d.CompanyId == companyId && 
-                    d.DocumentComponentId == documentId && 
+                .Where(d => d.CompanyId == companyId &&
+                    d.DocumentComponentId == documentId &&
                     d.Id == documentMappingId)
                 .FirstOrDefaultAsync();
 
@@ -856,7 +856,7 @@ namespace AuthScape.Document.Mapping.Services
 
             foreach (var header in headers)
             {
-                if (!await databaseContext.DocumentMappings.Where(d => 
+                if (!await databaseContext.DocumentMappings.Where(d =>
                     d.DocumentComponentId == documentComponentId &&
                     d.CompanyId == companyId &&
                     d.LocationId == locationId &&
@@ -940,7 +940,7 @@ namespace AuthScape.Document.Mapping.Services
             };
         }
 
-        public async Task<PagedList<DocumentComponent>> GetDocumentComponents(DocumentComponentStatus status = DocumentComponentStatus.Open, long ? companyId = null, long? userId = null, long? locationId = null, int? offset = null, int? length = null)
+        public async Task<PagedList<DocumentComponent>> GetDocumentComponents(DocumentComponentStatus status = DocumentComponentStatus.Open, long? companyId = null, long? userId = null, long? locationId = null, int? offset = null, int? length = null)
         {
             var list = databaseContext.DocumentComponents
                 .Include(d => d.DocumentType)
@@ -1020,7 +1020,7 @@ namespace AuthScape.Document.Mapping.Services
                 {
                     documentMapping.ToName = value;
                 }
-                
+
                 await databaseContext.SaveChangesAsync();
             }
         }
@@ -1318,7 +1318,7 @@ namespace AuthScape.Document.Mapping.Services
                     {
                         headerVals.Add(new FileHeader()
                         {
-                            Name = header.Replace("\n"," "),
+                            Name = header.Replace("\n", " "),
                             ColumnNumber = columnNumber,
                             ToValue = null,
                             RowNumber = headerRow
@@ -1354,7 +1354,7 @@ namespace AuthScape.Document.Mapping.Services
                     var instance = CreateInstanceOfObject(AssemblyFullName, TypeName);
                     var newInstance = instance.Unwrap();
 
-                    
+
                     foreach (var headerVal in headerVals.Where(h => h.ToValue != null))
                     {
 
@@ -1735,10 +1735,10 @@ namespace AuthScape.Document.Mapping.Services
 
         public async Task Publish(long companyId, long documentId, List<PublishedRow>? PublishedRows)
         {
-             var document = await databaseContext.DocumentComponents
-                .Include(d => d.DocumentMappings)
-                .Where(d => d.CompanyId == companyId && d.Id == documentId)
-                .FirstOrDefaultAsync();
+            var document = await databaseContext.DocumentComponents
+               .Include(d => d.DocumentMappings)
+               .Where(d => d.CompanyId == companyId && d.Id == documentId)
+               .FirstOrDefaultAsync();
 
             if (document != null)
             {
@@ -1842,7 +1842,7 @@ namespace AuthScape.Document.Mapping.Services
 
 
 
-                        
+
 
 
                     }
@@ -1851,7 +1851,7 @@ namespace AuthScape.Document.Mapping.Services
                         throw new BadRequestException(exp.InnerException.Message);
                     }
                 }
-                
+
             }
         }
 
@@ -1940,7 +1940,7 @@ namespace AuthScape.Document.Mapping.Services
                 //{
                 //    rules = JsonConvert.DeserializeObject<DocumentFilterForPreviewRule>(documentComponent.Rules);
                 //}
-                
+
                 foreach (var property1 in properties2)
                 {
                     var isRequired = !property1.IsMarkedAsNullable();
@@ -2018,7 +2018,7 @@ namespace AuthScape.Document.Mapping.Services
                             //}
                             //else
                             //{
-                                textElement.Text = propertyValue.ToString();
+                            textElement.Text = propertyValue.ToString();
                             //}
                         }
                         else
