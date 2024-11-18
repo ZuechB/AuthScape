@@ -10,7 +10,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { fontSize, paddingLeft, paddingRight } from '@xstyled/styled-components';
+import { fontSize, fontWeight, paddingLeft, paddingRight } from '@xstyled/styled-components';
+import Card from '../../components/marketplace/card';
 
 export default function Home({currentUser}) {
 
@@ -36,12 +37,10 @@ export default function Home({currentUser}) {
     ];
 
     const products = [
-        {
-            name: "Chair name",
-            name: "Chair name 2",
-            name: "Chair name 3",
-            name: "Chair name 4",
-        }
+        { name: "Chair name" },
+        { name: "Chair name 2" },
+        { name: "Chair name 3" },
+        { name: "Chair name 4" }
     ];
 
 
@@ -55,7 +54,7 @@ export default function Home({currentUser}) {
                     {accordings.map((according) => {
                         return (
                             <Accordion defaultExpanded={according.expanded} sx={{ boxShadow: 'none' }}>
-                                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header" sx={{fontWeight:"bold"}}>
                                     {according.name}
                                 </AccordionSummary>
                                 <Box sx={{paddingLeft:2, paddingRight:3}}>
@@ -90,7 +89,8 @@ export default function Home({currentUser}) {
                             {products.map((product) => {
                                 return (
                                 <Grid size={3}>
-                                    {product.name}
+                                    <Card />
+                                    {/* {product.name} test */}
                                 </Grid>
                                 )
                             })}                        
