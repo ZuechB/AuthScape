@@ -14,7 +14,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 // comment this out when done
 import UserEditor from './UserEditor'; // remove when done
-import { CompanyEditor } from './CompanyEditor' // remove when done
+import CompanyEditor from './CompanyEditor' // remove when done
 import { CSVUsersUpload } from './CSVUsersUpload'; // remove when done
 import { CustomFields } from './CustomFields'; // remove when done
 
@@ -271,7 +271,7 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
                     </>
                     }
 
-                    {showUserDetails &&
+                    {(showUserDetails && platformType == 1) &&
                     <>
                         <Box sx={{paddingRight:2, paddingLeft:2}}>
                             <Button variant="text" startIcon={<PasswordRoundedIcon />} onClick={async () => {
@@ -456,6 +456,8 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
                                 {platformType == 2 &&
                                     <CompanyEditor 
                                         companyId={showUserDetails}
+                                        platformType={platformType}
+                                        ref={userEditorRef}
                                         onSaved={(shouldClose) => {
 
                                             setDataGridRefreshKey(dataGridRefreshKey + 1);

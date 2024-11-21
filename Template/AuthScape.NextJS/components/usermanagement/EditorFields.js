@@ -157,7 +157,7 @@ export const renderSystemField = (identifier, fieldObject, control, errors, regi
           return (
           <Box>
 
-            {field == "IsActive" &&
+            {(field == "IsActive" || field == "isDeactivated") &&
                 <Box>
                   <Controller name={field} 
                       control={control}
@@ -172,7 +172,7 @@ export const renderSystemField = (identifier, fieldObject, control, errors, regi
                 </Box>
             }
 
-            {field != "IsActive" &&
+            {(field != "IsActive" && field != "isDeactivated") &&
             <Box>
                 <Controller name={field} 
                     control={control}
