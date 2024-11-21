@@ -288,6 +288,8 @@ namespace AuthScape.UserManageSystem.Services
                     Name = c.Name,
                     IsRequired = c.IsRequired,
                     CustomFieldType = c.FieldType,
+                    TabId = c.TabId,
+                    Size = c.GridSize,
                     Value = ""
                 }).ToListAsync();
 
@@ -823,6 +825,7 @@ namespace AuthScape.UserManageSystem.Services
             if (company != null)
             {
                 company.Title = param.Title;
+                company.IsDeactivated = param.IsDeactivated;
 
                 // new custom field logic here....
                 foreach (var customField in param.CustomFields)
