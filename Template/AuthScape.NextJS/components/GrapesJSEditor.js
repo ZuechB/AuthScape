@@ -28,14 +28,16 @@ import webPagePresent from 'grapesjs-preset-webpage';
 
 const GrapesJSEditor = ({loadedUser, isReady, pageId}) => {
   const editorRef = useRef(null);
-  
+  const blocksRef = useRef(null);
 
   useEffect(() => {
     if (loadedUser && isReady)
     {
       const editor = grapesjs.init({
         container: editorRef.current,
-        // your GrapesJS configurations here
+        blockManager: {
+          appendTo: blocksRef.current
+        },
         plugins: [plugin, ImageEditor, FlexBox, Forms, NavBar, styleBG, StyleFilter, StyleGradient, toolTip, CustomCode, postCSS, webPagePresent, Tabs, Touch, symbols],
         pluginsOpts: {
           [plugin]: { /* options */ }
@@ -44,29 +46,51 @@ const GrapesJSEditor = ({loadedUser, isReady, pageId}) => {
 
 
 
-      editor.Panels.addButton
-      ('options',
-        [{
-          id: 'save-db',
-          className: 'fa fa-floppy-o',
-          command: 'save-db',
-          attributes: {title: 'Save DB'}
-        }]
-      );
 
-    // Add the command
-    editor.Commands.add
-    ('save-db',
-    {
-        run: function(editor, sender)
-        {
+
+
+// // Get the Block Manager module
+// const blockManager = editor.Blocks;
+
+// // Get all blocks
+// const allBlocks = blockManager.getAll();
+
+// // Loop through all blocks and remove those with the title "Open Blocks"
+// allBlocks.forEach(block => {
+//   if (block.get('attributes').title === 'Open Blocks') {
+//     blockManager.remove(block.get('id'));
+//   }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+      editor.Panels.addButton('options', [{
+        id: 'save-db',
+        className: 'fa fa-floppy-o',
+        command: 'save-db',
+        attributes: {title: 'Save DB'}
+      }]);
+
+      // Add the command
+      editor.Commands.add('save-db', {
+        run: function(editor, sender) {
           sender && sender.set('active', 0); // turn off the button
           editor.store();
 
           var htmldata = editor.getHtml();
           var cssdata = editor.getCss();
-          // console.log(htmldata);
-          // console.log(cssdata);
 
           const sendData = async (htmldata, cssdata) => {
             await apiService().post("/ContentManagement/SavePageContent", {
@@ -76,27 +100,15 @@ const GrapesJSEditor = ({loadedUser, isReady, pageId}) => {
             });
           }
           sendData(htmldata, cssdata);
-          
-
         }
-    });
+      });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      // Remove the plus button from the panel
+      const panel = editor.Panels.getPanel('options');
+      const button = panel.get('buttons').find(btn => btn.id === 'add');
+      if (button) {
+        panel.get('buttons').remove(button);
+      }
 
       return () => {
         editor.destroy();
@@ -105,7 +117,10 @@ const GrapesJSEditor = ({loadedUser, isReady, pageId}) => {
   }, [loadedUser, isReady]);
 
   return (
-    <div ref={editorRef} />
+    <div style={{ display: 'flex' }}>
+      <div ref={blocksRef} style={{ width: '200px', background: '#f0f0f0' }}></div>
+      <div ref={editorRef} style={{ flex: 1 }}></div>
+    </div>
   );
 };
 
