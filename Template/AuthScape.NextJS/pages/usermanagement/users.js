@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 
 import UserManagement from '../../components/usermanagement/UserManagement';
 
-export default function Index({}) {
+export default function Users({}) {
 
     return (
         <Box>
