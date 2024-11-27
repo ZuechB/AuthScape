@@ -30,6 +30,8 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
     const [allRoles, setAllRoles] = useState([]);
     const [allCompanies, setAllCompanies] = useState([]);
 
+    const [hasLoaded, setHasLoaded] = useState(false);
+
 
     const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
     const [newPassword, setNewPassword] = useState(null);
@@ -138,12 +140,27 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
         },
     ];
 
+    useEffect(() => {
+
+        if (hasLoaded == false)
+        {
+            setHasLoaded(true);
+        }
+
+    }, []);
+
 
     useEffect(() => {
 
         setDataGridRefreshKey(dataGridRefreshKey + 1);
 
     }, [searchByName]);
+
+    useEffect(() => {
+
+        
+        
+    }, []);
 
     const getDataGrid = () => {
 
@@ -218,408 +235,411 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
 
     return (
         <Box>
-            <AppBar color={"invert"} position="static" sx={{borderRadius:1, paddingLeft:3, paddingRight:3, minHeight:50}}>
-                <Toolbar disableGutters>
-                {(!showCustomSettings && showUserDetails) &&
-                <>
-                    <Box sx={{paddingRight:2}}>
-                        <KeyboardBackspaceRoundedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, cursor:"pointer" }} onClick={() => {
-                            setShowUserDetails(null);
-                        }} />
-                    </Box>
-                    <Divider orientation="vertical" flexItem />
-                </>
-                }
-
-                {showCustomSettings &&
-                <>
-                    <Box sx={{paddingRight:2}}>
-                        <KeyboardBackspaceRoundedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, cursor:"pointer" }} onClick={() => {
-                            setShowCustomSettings(false);
-                        }} />
-                    </Box>
-                    <Divider orientation="vertical" flexItem />
-                </>
-                }
-
-                {!showCustomSettings &&
-                <>
-                    {showUserDetails &&
-                    <>
-                        <Box sx={{paddingRight:2, paddingLeft:2}}>
-                            <Button variant="text" startIcon={<SaveRoundedIcon />} onClick={async () => {
-
-                                userEditorRef.current.saveChanges();
-
-                            }}>Save</Button>
-                        </Box>
-                        <Divider orientation="vertical" flexItem />
-                    </>
-                    }
-
-                    {showUserDetails &&
-                    <>
-                        <Box sx={{paddingRight:2, paddingLeft:2}}>
-                            <Button variant="text" startIcon={<SaveRoundedIcon />} onClick={async () => {
-
-                                userEditorRef.current.saveChanges(true);
-                                setShowUserDetails(null);
-
-                            }}>Save &amp; close</Button>
-                        </Box>
-                        <Divider orientation="vertical" flexItem />
-                    </>
-                    }
-
-                    {(showUserDetails && platformType == 1) &&
-                    <>
-                        <Box sx={{paddingRight:2, paddingLeft:2}}>
-                            <Button variant="text" startIcon={<PasswordRoundedIcon />} onClick={async () => {
-
-                                setShowChangePasswordDialog(true);
-
-                            }}>Change Password</Button>
-                        </Box>
-                        <Divider orientation="vertical" flexItem />
-                    </>
-                    }
-
-
-                    {!showUserDetails &&
+            {hasLoaded &&
+            <Box>
+                <AppBar color={"invert"} position="static" sx={{borderRadius:1, paddingLeft:3, paddingRight:3, minHeight:50}}>
+                    <Toolbar disableGutters>
+                    {(!showCustomSettings && showUserDetails) &&
                     <>
                         <Box sx={{paddingRight:2}}>
-                            <Typography variant="body" sx={{fontSize:20, fontWeight:"bold"}}>
-                                {platformType == 1 && "Contacts"}
-                                {platformType == 2 && "Companies"}
-                                {platformType == 3 && "Locations"}
-                            </Typography>
+                            <KeyboardBackspaceRoundedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, cursor:"pointer" }} onClick={() => {
+                                setShowUserDetails(null);
+                            }} />
                         </Box>
                         <Divider orientation="vertical" flexItem />
                     </>
                     }
 
-                    {!showUserDetails &&
+                    {showCustomSettings &&
                     <>
-                        <Box sx={{paddingRight:2, paddingLeft:1}}>
-                            <Button variant="text" startIcon={<AddRoundedIcon />} onClick={async () => {
-
-                                setShowContactDialog(true);
-
-                            }}>Add Contact</Button>
+                        <Box sx={{paddingRight:2}}>
+                            <KeyboardBackspaceRoundedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, cursor:"pointer" }} onClick={() => {
+                                setShowCustomSettings(false);
+                            }} />
                         </Box>
                         <Divider orientation="vertical" flexItem />
                     </>
                     }
 
-                    {!showUserDetails &&
+                    {!showCustomSettings &&
                     <>
-                        <Box sx={{paddingRight:2, paddingLeft:1}}>
-                            <Button variant="text" startIcon={<UploadRoundedIcon />} onClick={async () => {
+                        {showUserDetails &&
+                        <>
+                            <Box sx={{paddingRight:2, paddingLeft:2}}>
+                                <Button variant="text" startIcon={<SaveRoundedIcon />} onClick={async () => {
 
-                                setUploadUsersShowDialog(true);
+                                    userEditorRef.current.saveChanges();
 
-                            }}>Upload Users</Button>
-                        </Box>
-                        <Divider orientation="vertical" flexItem />
+                                }}>Save</Button>
+                            </Box>
+                            <Divider orientation="vertical" flexItem />
+                        </>
+                        }
+
+                        {showUserDetails &&
+                        <>
+                            <Box sx={{paddingRight:2, paddingLeft:2}}>
+                                <Button variant="text" startIcon={<SaveRoundedIcon />} onClick={async () => {
+
+                                    userEditorRef.current.saveChanges(true);
+                                    setShowUserDetails(null);
+
+                                }}>Save &amp; close</Button>
+                            </Box>
+                            <Divider orientation="vertical" flexItem />
+                        </>
+                        }
+
+                        {(showUserDetails && platformType == 1) &&
+                        <>
+                            <Box sx={{paddingRight:2, paddingLeft:2}}>
+                                <Button variant="text" startIcon={<PasswordRoundedIcon />} onClick={async () => {
+
+                                    setShowChangePasswordDialog(true);
+
+                                }}>Change Password</Button>
+                            </Box>
+                            <Divider orientation="vertical" flexItem />
+                        </>
+                        }
+
+
+                        {!showUserDetails &&
+                        <>
+                            <Box sx={{paddingRight:2}}>
+                                <Typography variant="body" sx={{fontSize:20, fontWeight:"bold"}}>
+                                    {platformType == 1 && "Contacts"}
+                                    {platformType == 2 && "Companies"}
+                                    {platformType == 3 && "Locations"}
+                                </Typography>
+                            </Box>
+                            <Divider orientation="vertical" flexItem />
+                        </>
+                        }
+
+                        {!showUserDetails &&
+                        <>
+                            <Box sx={{paddingRight:2, paddingLeft:1}}>
+                                <Button variant="text" startIcon={<AddRoundedIcon />} onClick={async () => {
+
+                                    setShowContactDialog(true);
+
+                                }}>Add Contact</Button>
+                            </Box>
+                            <Divider orientation="vertical" flexItem />
+                        </>
+                        }
+
+                        {!showUserDetails &&
+                        <>
+                            <Box sx={{paddingRight:2, paddingLeft:1}}>
+                                <Button variant="text" startIcon={<UploadRoundedIcon />} onClick={async () => {
+
+                                    setUploadUsersShowDialog(true);
+
+                                }}>Upload Users</Button>
+                            </Box>
+                            <Divider orientation="vertical" flexItem />
+                        </>
+                        }
                     </>
                     }
-                </>
-                }
-                
-                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                </Box>
-                <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Custom Fields">
-                    <IconButton sx={{ p: 0 }} onClick={() => {
-                        setShowCustomSettings(true);
-                    }}>
-                        <SettingsRoundedIcon sx={{fontSize:25}} />
-                    </IconButton>
-                    </Tooltip>
-                    <Menu
-                    sx={{ mt: '45px' }}
-                    id="menu-appbar"
-                    // anchorEl={anchorElUser}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    >
-                    </Menu>
-                </Box>
-                </Toolbar>
-            </AppBar>
-
-            <Box sx={{marginTop:1, padding:2, borderRadius:1, boxShadow:"0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)"}}>
-                {showUserDetails == null &&
-                    <Box sx={{paddingBottom:1}}>
-
-                        <Grid container spacing={2}>
-                            <Grid size={4}>
-                                <AutoSaveTextField label="name or email " fullWidth={true} onChanged={(value) => {
-                                
-                                    setSearchByName(value);
-                                    setDataGridRefreshKey(dataGridRefreshKey + 1);
-
-                                }} />
-                            </Grid>
-                            <Grid size={4}>
-                                <Autocomplete
-                                    disablePortal
-                                    options={allCompanies}
-                                    renderInput={(params) => <TextField {...params} label="Companies" />}
-                                    onChange={(event, newValue) => {
-
-                                        if (newValue != null)
-                                        {
-                                            setSearchByCompanyId(newValue.id);
-                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
-                                        }
-                                        else
-                                        {
-                                            setSearchByCompanyId(null);
-                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
-                                        }
-                                    }}
-                                />
-                            </Grid>
-                            <Grid size={4}>
-                                <Autocomplete
-                                    disablePortal
-                                    options={allRoles}
-                                    renderInput={(params) => <TextField {...params} label="Roles" />}
-                                    onChange={(event, newValue) => {
-
-                                        if (newValue != null)
-                                        {
-                                            setSearchByRoleId(newValue.id);
-                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
-                                        }
-                                        else
-                                        {
-                                            setSearchByRoleId(null);
-                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
-                                        }
-                                    }}
-                                />
-                            </Grid>
-                        </Grid>
-
-                        
+                    
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                     </Box>
-                }
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Custom Fields">
+                        <IconButton sx={{ p: 0 }} onClick={() => {
+                            setShowCustomSettings(true);
+                        }}>
+                            <SettingsRoundedIcon sx={{fontSize:25}} />
+                        </IconButton>
+                        </Tooltip>
+                        <Menu
+                        sx={{ mt: '45px' }}
+                        id="menu-appbar"
+                        // anchorEl={anchorElUser}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        >
+                        </Menu>
+                    </Box>
+                    </Toolbar>
+                </AppBar>
 
-                {!showCustomSettings &&
-                <Box>
+                <Box sx={{marginTop:1, padding:2, borderRadius:1, boxShadow:"0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)"}}>
                     {showUserDetails == null &&
-                    <EditableDatagrid 
-                        key={dataGridRefreshKey}
-                        height={height}
-                        pageSize={25}
-                        url={getDataGrid()} 
-                        columns={getColumns()}
-                        params={{
-                            searchByName: searchByName,
-                            searchByCompanyId: searchByCompanyId,
-                            searchByRoleId: searchByRoleId,
-                        }} 
-                        onRowClick={(row) => {
-                            setShowUserDetails(row.id);
-                        }} />
+                        <Box sx={{paddingBottom:1}}>
+
+                            <Grid container spacing={2}>
+                                <Grid size={4}>
+                                    <AutoSaveTextField label="name or email " fullWidth={true} onChanged={(value) => {
+                                    
+                                        setSearchByName(value);
+                                        setDataGridRefreshKey(dataGridRefreshKey + 1);
+
+                                    }} />
+                                </Grid>
+                                <Grid size={4}>
+                                    <Autocomplete
+                                        disablePortal
+                                        options={allCompanies}
+                                        renderInput={(params) => <TextField {...params} label="Companies" />}
+                                        onChange={(event, newValue) => {
+
+                                            if (newValue != null)
+                                            {
+                                                setSearchByCompanyId(newValue.id);
+                                                setDataGridRefreshKey(dataGridRefreshKey + 1);
+                                            }
+                                            else
+                                            {
+                                                setSearchByCompanyId(null);
+                                                setDataGridRefreshKey(dataGridRefreshKey + 1);
+                                            }
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid size={4}>
+                                    <Autocomplete
+                                        disablePortal
+                                        options={allRoles}
+                                        renderInput={(params) => <TextField {...params} label="Roles" />}
+                                        onChange={(event, newValue) => {
+
+                                            if (newValue != null)
+                                            {
+                                                setSearchByRoleId(newValue.id);
+                                                setDataGridRefreshKey(dataGridRefreshKey + 1);
+                                            }
+                                            else
+                                            {
+                                                setSearchByRoleId(null);
+                                                setDataGridRefreshKey(dataGridRefreshKey + 1);
+                                            }
+                                        }}
+                                    />
+                                </Grid>
+                            </Grid>
+
+                            
+                        </Box>
                     }
 
+                    {!showCustomSettings &&
                     <Box>
-                        {showUserDetails != null &&
-                        <Grid item xs={12}>
-                            <Box sx={{ width: '100%' }}>
-                                {platformType == 1 &&
-                                    <UserEditor
-                                        platformType={platformType}
-                                        ref={userEditorRef}
-                                        userId={showUserDetails}
-                                        onSaved={(shouldClose) => {
-
-                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
-
-                                            if (shouldClose)
-                                            {
-                                                setShowUserDetails(null);
-                                            }
-                                        }}
-                                    />
-                                }
-                                {platformType == 2 &&
-                                    <CompanyEditor 
-                                        companyId={showUserDetails}
-                                        platformType={platformType}
-                                        ref={userEditorRef}
-                                        onSaved={(shouldClose) => {
-
-                                            setDataGridRefreshKey(dataGridRefreshKey + 1);
-
-                                            if (shouldClose)
-                                            {
-                                                setShowUserDetails(null);
-                                            }
-                                        }}
-                                    />
-                                }
-                            </Box>
-                        </Grid>
+                        {showUserDetails == null &&
+                        <EditableDatagrid 
+                            key={dataGridRefreshKey}
+                            height={height}
+                            pageSize={25}
+                            url={getDataGrid()} 
+                            columns={getColumns()}
+                            params={{
+                                searchByName: searchByName,
+                                searchByCompanyId: searchByCompanyId,
+                                searchByRoleId: searchByRoleId,
+                            }} 
+                            onRowClick={(row) => {
+                                setShowUserDetails(row.id);
+                            }} />
                         }
-                        
-                    </Box>
-                </Box>
-                }
 
-                <Dialog
-                    open={showChangePasswordDialog}
-                    onClose={() => {
-                        setShowChangePasswordDialog(false);
-                    }}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description">
-                    <DialogTitle id="alert-dialog-title">
-                    {"Change Password"}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Please provide the new password that you want to change for this users account.
-                        </DialogContentText>
+                        <Box>
+                            {showUserDetails != null &&
+                            <Grid item xs={12}>
+                                <Box sx={{ width: '100%' }}>
+                                    {platformType == 1 &&
+                                        <UserEditor
+                                            platformType={platformType}
+                                            ref={userEditorRef}
+                                            userId={showUserDetails}
+                                            onSaved={(shouldClose) => {
 
-                        <Grid size={12}>
+                                                setDataGridRefreshKey(dataGridRefreshKey + 1);
+
+                                                if (shouldClose)
+                                                {
+                                                    setShowUserDetails(null);
+                                                }
+                                            }}
+                                        />
+                                    }
+                                    {platformType == 2 &&
+                                        <CompanyEditor 
+                                            companyId={showUserDetails}
+                                            platformType={platformType}
+                                            ref={userEditorRef}
+                                            onSaved={(shouldClose) => {
+
+                                                setDataGridRefreshKey(dataGridRefreshKey + 1);
+
+                                                if (shouldClose)
+                                                {
+                                                    setShowUserDetails(null);
+                                                }
+                                            }}
+                                        />
+                                    }
+                                </Box>
+                            </Grid>
+                            }
                             
-                            <Box sx={{paddingTop:2}}>
-                                <TextField id="txtNewPassword" label="New Password" variant="outlined" fullWidth={true} onChange={(val) => {
-                                    setNewPassword(val.currentTarget.value);
-                                }} />
-                            </Box>
-                            <Box sx={{paddingTop:2}}>
-                                <TextField id="txtConfirmPassword" label="Confirm Password" variant="outlined" fullWidth={true} onChange={(val) => {
-                                    setConfirmPassword(val.currentTarget.value);
-                                }} />
+                        </Box>
+                    </Box>
+                    }
 
-                                {newPassword !== confirmPassword &&
-                                <Typography color={"red"}>{"New Password and Confirm Password"} does not match.</Typography>
-                                }
+                    <Dialog
+                        open={showChangePasswordDialog}
+                        onClose={() => {
+                            setShowChangePasswordDialog(false);
+                        }}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description">
+                        <DialogTitle id="alert-dialog-title">
+                        {"Change Password"}
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                Please provide the new password that you want to change for this users account.
+                            </DialogContentText>
 
-                            </Box>
-
-                        </Grid>
-
-
-
-
-                    </DialogContent>
-                    <DialogActions>
-                    <Button onClick={() => {
-                        setShowChangePasswordDialog(false);
-                    }}>Cancel</Button>
-                    <Button onClick={async () => {
-
-                        if (newPassword != null && confirmPassword != null && confirmPassword != "" && newPassword != "")
-                        {
-                            let response = await apiService().put("/UserManagement/ChangeUserPassword", {
-                                userId: parseInt(showUserDetails),
-                                password: newPassword
-                            });
-
-                            if (response.data != null && response.data.error != null)
-                            {
-                                alert(response.data.error);
-                            }
-                            else
-                            {
-                                setShowChangePasswordDialog(false);
-                            }
-                        }
-
-                    }}>
-                        Change Password
-                    </Button>
-                    </DialogActions>
-                </Dialog>
-
-
-
-
-
-                <Dialog
-                    open={showContactDialog}
-                    onClose={() => {
-                        setShowContactDialog(false);
-                    }}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description">
-                    <DialogTitle id="alert-dialog-title">
-                    {"Setup Contact Account"}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Please provide the following information to proceed and complete the account setup.
-                        </DialogContentText>
-
-                        <Grid container spacing={2} sx={{paddingTop:2}}>
-                            <Grid size={6}>
-                                <TextField inputRef={newFirstName} label="First Name" variant="outlined" fullWidth={true} />
-                            </Grid>
-                            <Grid size={6}>
-                                <TextField inputRef={newLastName} label="Last Name" variant="outlined" fullWidth={true} />
-                            </Grid>
                             <Grid size={12}>
-                                <TextField inputRef={newEmail} label="Email" variant="outlined" fullWidth={true} />
+                                
+                                <Box sx={{paddingTop:2}}>
+                                    <TextField id="txtNewPassword" label="New Password" variant="outlined" fullWidth={true} onChange={(val) => {
+                                        setNewPassword(val.currentTarget.value);
+                                    }} />
+                                </Box>
+                                <Box sx={{paddingTop:2}}>
+                                    <TextField id="txtConfirmPassword" label="Confirm Password" variant="outlined" fullWidth={true} onChange={(val) => {
+                                        setConfirmPassword(val.currentTarget.value);
+                                    }} />
+
+                                    {newPassword !== confirmPassword &&
+                                    <Typography color={"red"}>{"New Password and Confirm Password"} does not match.</Typography>
+                                    }
+
+                                </Box>
+
                             </Grid>
-                        </Grid>
-
-                    </DialogContent>
-                    <DialogActions>
-                    <Button onClick={() => {
-                        setShowChangePasswordDialog(false);
-                    }}>Cancel</Button>
-                    <Button onClick={async () => {
 
 
-                        alert(newFirstName.current.value)
-                        alert(newLastName.current.value)
-                        alert(newEmail.current.value)
 
-                        // if (newPassword != null && confirmPassword != null && confirmPassword != "" && newPassword != "")
-                        // {
-                        //     let response = await apiService().put("/UserManagement/ChangeUserPassword", {
-                        //         userId: parseInt(showUserDetails),
-                        //         password: newPassword
-                        //     });
 
-                        //     if (response.data != null && response.data.error != null)
-                        //     {
-                        //         alert(response.data.error);
-                        //     }
-                        //     else
-                        //     {
-                        //         setShowChangePasswordDialog(false);
-                        //     }
-                        // }
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={() => {
+                            setShowChangePasswordDialog(false);
+                        }}>Cancel</Button>
+                        <Button onClick={async () => {
 
-                    }}>
-                        create contact
-                    </Button>
-                    </DialogActions>
-                </Dialog>
+                            if (newPassword != null && confirmPassword != null && confirmPassword != "" && newPassword != "")
+                            {
+                                let response = await apiService().put("/UserManagement/ChangeUserPassword", {
+                                    userId: parseInt(showUserDetails),
+                                    password: newPassword
+                                });
 
-                {showCustomSettings &&
-                    <CustomFields platformType={platformType} />
-                }
+                                if (response.data != null && response.data.error != null)
+                                {
+                                    alert(response.data.error);
+                                }
+                                else
+                                {
+                                    setShowChangePasswordDialog(false);
+                                }
+                            }
 
-                <CSVUsersUpload showDialog={uploadUsersShowDialog} onClose={() => {
-                    setUploadUsersShowDialog(false);
-                }} />
+                        }}>
+                            Change Password
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
+
+
+
+
+
+                    <Dialog
+                        open={showContactDialog}
+                        onClose={() => {
+                            setShowContactDialog(false);
+                        }}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description">
+                        <DialogTitle id="alert-dialog-title">
+                        {"Setup Contact Account"}
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                Please provide the following information to proceed and complete the account setup.
+                            </DialogContentText>
+
+                            <Grid container spacing={2} sx={{paddingTop:2}}>
+                                <Grid size={6}>
+                                    <TextField inputRef={newFirstName} label="First Name" variant="outlined" fullWidth={true} />
+                                </Grid>
+                                <Grid size={6}>
+                                    <TextField inputRef={newLastName} label="Last Name" variant="outlined" fullWidth={true} />
+                                </Grid>
+                                <Grid size={12}>
+                                    <TextField inputRef={newEmail} label="Email" variant="outlined" fullWidth={true} />
+                                </Grid>
+                            </Grid>
+
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={() => {
+                            setShowChangePasswordDialog(false);
+                        }}>Cancel</Button>
+                        <Button onClick={async () => {
+
+
+                            alert(newFirstName.current.value)
+                            alert(newLastName.current.value)
+                            alert(newEmail.current.value)
+
+                            // if (newPassword != null && confirmPassword != null && confirmPassword != "" && newPassword != "")
+                            // {
+                            //     let response = await apiService().put("/UserManagement/ChangeUserPassword", {
+                            //         userId: parseInt(showUserDetails),
+                            //         password: newPassword
+                            //     });
+
+                            //     if (response.data != null && response.data.error != null)
+                            //     {
+                            //         alert(response.data.error);
+                            //     }
+                            //     else
+                            //     {
+                            //         setShowChangePasswordDialog(false);
+                            //     }
+                            // }
+
+                        }}>
+                            create contact
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
+
+                    {showCustomSettings &&
+                        <CustomFields platformType={platformType} />
+                    }
+
+                    <CSVUsersUpload showDialog={uploadUsersShowDialog} onClose={() => {
+                        setUploadUsersShowDialog(false);
+                    }} />
+                </Box>
             </Box>
-
+            }
         </Box>
     );
 }

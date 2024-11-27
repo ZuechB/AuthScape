@@ -166,11 +166,8 @@ namespace AuthScape.UserManageSystem.Services
             var usersQuery = databaseContext.Users
                 .AsNoTracking()
                 .Include(u => u.Company)
-                .Where(u => u.IsActive)
                 .AsQueryable();
                 
-
-
             if (searchByCompanyId != null)
             {
                 usersQuery = usersQuery.Where(u => u.CompanyId == searchByCompanyId.Value);

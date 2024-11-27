@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>AuthScape.Analytics</PackageId>
     <Title>AuthScape.Analytics</Title>
-    <Version>1.2.192</Version>
+    <Version>1.2.194</Version>
     <Company>ZuechB</Company>
     <Authors>ZuechB</Authors>
     <Product>AuthScape.Analytics</Product>
