@@ -14,6 +14,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { background, border, paddingTop, position, textDecoration, width } from '@xstyled/styled-components';
+import { Button, Stack } from '@mui/material';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -47,42 +50,69 @@ export default function RecipeReviewCard() {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-        // avatar={
-        //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-        //     R
-        //   </Avatar>
-        // }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
-      />
+    <Card sx={{ maxWidth: 345, position:"relative", border: "1px solid lightgray" }}>
+
+      
+
+      <Stack 
+        direction="row"
+        spacing={0}
+        sx={{
+          justifyContent: "flex-end",
+          alignItems: "center",
+          right: 0,
+          width:"100%"
+        }}>
+        <IconButton aria-label="add to favorites">
+          {/* <FavoriteIcon sx={{color:"lightgray"}} /> */}
+          <FavoriteBorderOutlinedIcon />
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+      </Stack>
+      
+      
       <CardMedia
         component="img"
         height="194"
         image="https://mui.com/static/images/cards/paella.jpg"
         alt="Paella dish"
       />
+
       <CardContent>
+
+        <Typography variant="h5">
+          Shrimp and Chorizo Paella
+        </Typography>
+
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the mussels,
           if you like.
         </Typography>
+
+
+        <Stack direction="row" spacing={2} sx={{paddingTop:2}}>
+          <Typography variant="h5" gutterBottom sx={{textDecoration:"line-through"}}>
+            $45.66
+          </Typography>
+
+          <Typography variant="h5" gutterBottom>
+            $45.66
+          </Typography>
+        </Stack>
+
+        <Typography variant="h5" gutterBottom sx={{paddingTop:2}}>
+            Qty: 300
+        </Typography>
+
+
+
+        <Button variant="contained" sx={{width:"100%", marginTop:2}}>Add To Cart</Button>
+
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
+      
     </Card>
   );
 }

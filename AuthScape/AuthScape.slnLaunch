@@ -3,14 +3,14 @@
     "Name": "StandardRun",
     "Projects": [
       {
-        "Name": "API\\API.csproj",
+        "Path": "API\\API.csproj",
         "Action": "Start",
-        "DebugTarget": ""
+        "DebugTarget": "IIS Express"
       },
       {
-        "Name": "IDP\\IDP.csproj",
+        "Path": "IDP\\IDP.csproj",
         "Action": "Start",
-        "DebugTarget": ""
+        "DebugTarget": "IIS Express"
       }
     ]
   }

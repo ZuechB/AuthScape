@@ -26,55 +26,77 @@ import webPagePresent from 'grapesjs-preset-webpage';
 // import grapesJSMJML from 'grapesjs-mjml'
 
 
-const GrapesJSEditor = ({loadedUser, isReady, pageId}) => {
+const GrapesJSEditor = ({loadedUser, isReady, pageId, plugins = []}) => {
   const editorRef = useRef(null);
   const blocksRef = useRef(null);
+  
 
   useEffect(() => {
     if (loadedUser && isReady)
     {
+      plugins.push(plugin);
+      plugins.push(ImageEditor);
+      plugins.push(FlexBox);
+      plugins.push(Forms);
+      plugins.push(NavBar);
+      plugins.push(styleBG);
+      plugins.push(StyleFilter);
+      plugins.push(StyleGradient);
+      plugins.push(toolTip);
+      plugins.push(CustomCode);
+      plugins.push(postCSS);
+      plugins.push(webPagePresent);
+      plugins.push(Tabs);
+      plugins.push(Touch);
+      plugins.push(symbols);
+
+
       const editor = grapesjs.init({
         container: editorRef.current,
+        storageManager: false,
         blockManager: {
           appendTo: blocksRef.current
         },
-        plugins: [plugin, ImageEditor, FlexBox, Forms, NavBar, styleBG, StyleFilter, StyleGradient, toolTip, CustomCode, postCSS, webPagePresent, Tabs, Touch, symbols],
+        panels: { defaults: [] }, // Avoid default panels
+        plugins: plugins,
         pluginsOpts: {
           [plugin]: { /* options */ }
-        }
+        },
+        assetManager: {
+          // upload: {
+          //   endpoint: 'https://your-api-endpoint/upload/assets',
+          // },
+          uploadFile: async (e) => {
+            const files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+            const formData = new FormData();
+  
+            if (files.length == 0)
+            {
+              return;
+            }
+
+            for (let i = 0; i < files.length; i++) {
+              formData.append('file', files[0]);
+            }
+
+            const response = await apiService().post("/ContentManagement/UploadAsset", formData);
+            if (response.status == 200)
+            {
+              const file = response.data;
+
+              const assets = {
+                src: file.url,
+                name: file.name,
+                //type: "image",
+                height: file.height,
+                width: file.width,
+              };
+              editor.AssetManager.add(assets);
+
+            }
+          },
+        },
       });
-
-
-
-
-
-
-// // Get the Block Manager module
-// const blockManager = editor.Blocks;
-
-// // Get all blocks
-// const allBlocks = blockManager.getAll();
-
-// // Loop through all blocks and remove those with the title "Open Blocks"
-// allBlocks.forEach(block => {
-//   if (block.get('attributes').title === 'Open Blocks') {
-//     blockManager.remove(block.get('id'));
-//   }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
 
       editor.Panels.addButton('options', [{
         id: 'save-db',
@@ -99,6 +121,7 @@ const GrapesJSEditor = ({loadedUser, isReady, pageId}) => {
               cssData: cssdata
             });
           }
+
           sendData(htmldata, cssdata);
         }
       });
@@ -118,7 +141,7 @@ const GrapesJSEditor = ({loadedUser, isReady, pageId}) => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <div ref={blocksRef} style={{ width: '200px', background: '#f0f0f0' }}></div>
+      <div ref={blocksRef} style={{ width: '180px', background: '#f0f0f0' }}></div>
       <div ref={editorRef} style={{ flex: 1 }}></div>
     </div>
   );

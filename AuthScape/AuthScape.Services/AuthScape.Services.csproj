@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Version>1.2.194</Version>
     <Company>ZuechB</Company>
     <Product>AuthScape</Product>
@@ -21,41 +21,41 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.AdobeIO" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Amazon" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Apple" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Asana" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Autodesk" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Basecamp" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.BattleNet" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Coinbase" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Discord" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Dropbox" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Fitbit" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.HubSpot" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.MailChimp" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Notion" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Patreon" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Paypal" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Slack" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Spotify" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.WordPress" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Yahoo" Version="8.2.0" />
-    <PackageReference Include="AspNet.Security.OAuth.Yammer" Version="8.2.0" />
+    <PackageReference Include="AspNet.Security.OAuth.AdobeIO" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Amazon" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Apple" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Asana" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Autodesk" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Basecamp" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.BattleNet" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Coinbase" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Discord" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Dropbox" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Fitbit" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.HubSpot" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.MailChimp" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Notion" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Patreon" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Paypal" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Slack" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Spotify" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.WordPress" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Yahoo" Version="9.0.0" />
+    <PackageReference Include="AspNet.Security.OAuth.Yammer" Version="9.0.0" />
     <PackageReference Include="Azure.AI.FormRecognizer" Version="4.1.0" />
     <PackageReference Include="CoreBackpack" Version="1.0.40" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -65,7 +65,7 @@
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="5.8.0" />
     <PackageReference Include="OpenIddict.Validation" Version="5.8.0" />
     <PackageReference Include="SendGrid" Version="9.29.3" />
-    <PackageReference Include="Stripe.net" Version="46.0.0" />
+    <PackageReference Include="Stripe.net" Version="47.1.0" />
   </ItemGroup>
 
   <ItemGroup>

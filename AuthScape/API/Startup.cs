@@ -236,6 +236,12 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             authenticationManager.Configure(app, env);
+
+
+            // remove if not using wwwroot folder...
+            app.UseStaticFiles();
+
+
             app.UseEndpoints((endpoints) =>
             {
                 endpoints.MapControllers();

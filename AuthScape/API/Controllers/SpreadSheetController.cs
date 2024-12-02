@@ -12,7 +12,7 @@ using CoreBackpack;
 using Services.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using Models;
+using Models.Products;
 
 namespace API.Controllers
 {
@@ -42,7 +42,7 @@ namespace API.Controllers
         {
            var sampleData = new List<Product>();
 
-            var totalData = databaseContext.Products.ToList().Count;
+            //var totalData = databaseContext.Products.ToList().Count;
 
             if (pagniationModel != null)
             {
@@ -194,7 +194,7 @@ namespace API.Controllers
                 return row;
             });
 
-            speadsheetData.totalCount = totalData;
+            //speadsheetData.totalCount = totalData;
 
             return Ok(speadsheetData);
         }
@@ -206,36 +206,40 @@ namespace API.Controllers
                 search = search.Trim().ToLower();
             }
 
-            var productQuery = databaseContext.Products.AsNoTracking()
-               .Where(p => string.IsNullOrWhiteSpace(search) || p.Name.Contains(search));
+            //var productQuery = databaseContext.Products.AsNoTracking()
+            //   .Where(p => string.IsNullOrWhiteSpace(search) || p.Name.Contains(search));
 
-        
-            var products = productQuery.ToPagedResult(offset - 1, length);
 
-            foreach ( var product in products )
-            {
-                var photos = new List<SheetPhoto>();
+            //var products = productQuery.ToPagedResult(offset - 1, length);
 
-                photos.Add(new SheetPhoto("1", "photourlhere"));
+            //foreach ( var product in products )
+            //{
+            //    var photos = new List<SheetPhoto>();
 
-                product.Photos = photos;
-            }
+            //    photos.Add(new SheetPhoto("1", "photourlhere"));
 
-            return products;
+            //    product.Photos = photos;
+            //}
+
+            //return products;
+
+            return new PagedList<Product>();
         }
 
         private List<Product> GenerateSampleData()
         {
-            var datas = databaseContext.Products.AsNoTracking().ToList();
+            //var datas = databaseContext.Products.AsNoTracking().ToList();
 
-            foreach (var data in datas)
-            {
-                var photos = new List<SheetPhoto>();
-                photos.Add(new SheetPhoto("1", "photourlhere"));
-                data.Photos = photos;
-            }
+            //foreach (var data in datas)
+            //{
+            //    var photos = new List<SheetPhoto>();
+            //    photos.Add(new SheetPhoto("1", "photourlhere"));
+            //    data.Photos = photos;
+            //}
 
-            return datas;
+            //return datas;
+
+            return new List<Product>();
         }
     }
 

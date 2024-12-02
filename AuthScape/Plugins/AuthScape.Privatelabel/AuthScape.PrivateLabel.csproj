@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Version>1.2.194</Version>
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Authsome" Version="1.0.8" />
-    <PackageReference Include="NUglify" Version="1.21.9" />
+    <PackageReference Include="NUglify" Version="1.21.10" />
     <PackageReference Include="Scryber.Core.OpenType" Version="6.0.0.5-beta" />
   </ItemGroup>
 

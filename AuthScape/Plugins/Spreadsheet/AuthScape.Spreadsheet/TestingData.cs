@@ -7,6 +7,7 @@ namespace AuthScape.Spreadsheet
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public Guid CategoryId { get; set; }
         public decimal Qty { get; set; }
         public decimal Price { get; set; }
         public ProductType ProductType { get; set; }
@@ -16,6 +17,11 @@ namespace AuthScape.Spreadsheet
         public DateTime WhenToRelease { get; set; }
         public string Remove { get; set; }
     }
+
+
+
+
+
 
     public enum ProductType
     {
