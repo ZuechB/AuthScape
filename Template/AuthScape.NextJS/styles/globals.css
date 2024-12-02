@@ -367,3 +367,17 @@ a {
 }
 
 
+
+
+
+
+
+
+
+
+
+.gjs-pn-buttons span[title="Open Blocks"] {
+  display: none !important;
+}
+
+/* .gjs-pn-buttons div[title="Open Blocks"] */

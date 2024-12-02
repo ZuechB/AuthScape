@@ -144,6 +144,10 @@ export default function PortalLayout({children, currentUser, pageProps}) {
             {name: "Datasources", href:"/mapping/Datasources" },
           ]},
 
+          {name: "Web Editor", icon: <MapRoundedIcon/>, subnav: [
+            {name: "Pages", href:"/editor/1" },
+          ]},
+
           {name: "Wallet", icon: <MapRoundedIcon/>, subnav: [
             {name: "Invoice", href:"/wallet/Invoice" },
             {name: "Store Credit", href:"/wallet/storeCredit", disabled: true },

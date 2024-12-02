@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Version>1.2.194</Version>
@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     <PackageReference Include="SendGrid" Version="9.29.3" />
-    <PackageReference Include="StrongGrid" Version="0.109.0" />
+    <PackageReference Include="StrongGrid" Version="0.110.0" />
   </ItemGroup>
 
   <ItemGroup>

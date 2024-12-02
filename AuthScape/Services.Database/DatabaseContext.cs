@@ -23,6 +23,7 @@ using Models;
 using AuthScape.PrivateLabel.Models;
 using AuthScape.UserManagementSystem.Models;
 using AuthScape.UserManageSystem.Models;
+using Models.Products;
 
 namespace Services.Context
 {
@@ -42,6 +43,7 @@ namespace Services.Context
         public DbSet<UserLocations> UserLocations { get; set; }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
 
         public DbSet<Page> Pages { get; set; }
         public DbSet<Stylesheet> Stylesheets { get; set; }
@@ -624,6 +626,13 @@ namespace Services.Context
             builder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasDefaultValueSql("newsequentialid()");
+            });
+
+            builder.Entity<ProductCategory>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasDefaultValueSql("newsequentialid()");
             });
 
             builder.Entity<Location>(entity =>
