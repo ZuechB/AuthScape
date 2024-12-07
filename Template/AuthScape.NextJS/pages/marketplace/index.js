@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import {apiService} from 'authscape';
 import { Checkbox, TextField, Paper, Typography, Box, Stack } from '@mui/material';
@@ -15,43 +15,35 @@ import Card from '../../components/marketplace/card';
 
 export default function Home({currentUser}) {
 
-    const accordings = [
-        {
-            name: "Category",
-            expanded: true,
-            filters: [
-                {name: "Chair", available: 90},
-                {name: "Table", available: 23},
-                {name: "Storage", available: 68}
-            ]
-        },
-        {
-            name: "Colors",
-            expanded: false,
-            filters: [
-                {name: "red", available: 19},
-                {name: "blue", available: 45},
-                {name: "green", available: 6}
-            ]
-        }
-    ];
+    const [categories, setCategories] = useState(null);
+    const [products, setProducts] = useState(null);
+    const [total, setTotal] = useState(0);
 
-    const products = [
-        { name: "Chair name" },
-        { name: "Chair name 2" },
-        { name: "Chair name 3" },
-        { name: "Chair name 4" }
-    ];
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+            const response = await apiService().get("/Marketplace/GetMarketplace");
+            if (response != null && response.status == 200)
+            {
+                setCategories(response.data.categories);
+                setProducts(response.data.products);
+                setTotal(response.data.total);
+            }
+        }
+        fetchData();
+
+    }, []);
 
 
     return (
         <Box>
             <Box sx={{paddingLeft:2, fontSize:18}}>
-                814 Found
+                {total} Found
             </Box>
             <Grid container spacing={2}>
                 <Grid size={2}>
-                    {accordings.map((according) => {
+                    {categories != null && categories.map((according) => {
                         return (
                             <Accordion defaultExpanded={according.expanded} sx={{ boxShadow: 'none' }}>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header" sx={{fontWeight:"bold"}}>
@@ -86,7 +78,7 @@ export default function Home({currentUser}) {
                 <Grid size={10}>
                     <Box>
                         <Grid container spacing={2}>
-                            {products.map((product) => {
+                            {products != null && products.map((product) => {
                                 return (
                                 <Grid size={3}>
                                     <Card />

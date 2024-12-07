@@ -23,7 +23,6 @@ using Models;
 using AuthScape.PrivateLabel.Models;
 using AuthScape.UserManagementSystem.Models;
 using AuthScape.UserManageSystem.Models;
-using Models.Products;
 using AuthScape.Marketplace.Models;
 
 namespace Services.Context
@@ -43,9 +42,6 @@ namespace Services.Context
         
         public DbSet<UserLocations> UserLocations { get; set; }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
-
         public DbSet<Page> Pages { get; set; }
         public DbSet<Stylesheet> Stylesheets { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -53,7 +49,10 @@ namespace Services.Context
 
         #region Marketplace
 
-        public DbSet<MarketplaceProduct> MarketplaceProducts { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductField> ProductFields { get; set; }
+        public DbSet<ProductCategoryField> ProductCategoryFields { get; set; }
 
         #endregion
 
@@ -215,7 +214,10 @@ namespace Services.Context
 
             RegisterUserManagementService.OnModelCreating(builder);
 
-            UserMaangementContextSetup.OnModelCreating(builder);
+            UserMangementContextSetup.OnModelCreating(builder);
+
+            MarketplaceContextSetup.OnModelCreating(builder);
+
 
 
             builder.Entity<ThirdPartyAuthentication>(entity =>
