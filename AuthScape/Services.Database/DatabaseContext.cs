@@ -24,6 +24,7 @@ using AuthScape.PrivateLabel.Models;
 using AuthScape.UserManagementSystem.Models;
 using AuthScape.UserManageSystem.Models;
 using Models.Products;
+using AuthScape.Marketplace.Models;
 
 namespace Services.Context
 {
@@ -49,6 +50,12 @@ namespace Services.Context
         public DbSet<Stylesheet> Stylesheets { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Location> Locations { get; set; }
+
+        #region Marketplace
+
+        public DbSet<MarketplaceProduct> MarketplaceProducts { get; set; }
+
+        #endregion
 
         #region UserManagement
 

@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AuthScape.Marketplace.Models\AuthScape.Marketplace.Models.csproj" />
     <ProjectReference Include="..\AuthScape.Models\AuthScape.Models.csproj" />
     <ProjectReference Include="..\LongRunningServices\AuthScape.BackgroundServiceCore.Models\AuthScape.BackgroundServiceCore.Models.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
