@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Services.Context;
 
@@ -11,9 +12,11 @@ using Services.Context;
 namespace Services.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241207010159_TestingMarketplace")]
+    partial class TestingMarketplace
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -696,79 +699,26 @@ namespace Services.Database.Migrations
                     b.ToTable("SharedDocuments");
                 });
 
-            modelBuilder.Entity("AuthScape.Marketplace.Models.Product", b =>
+            modelBuilder.Entity("AuthScape.Marketplace.Models.MarketplaceProduct", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newsequentialid()");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Size")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("AuthScape.Marketplace.Models.ProductCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newsequentialid()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductCategories");
-                });
-
-            modelBuilder.Entity("AuthScape.Marketplace.Models.ProductCategoryField", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newsequentialid()");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductFieldId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id", "ProductId", "ProductFieldId");
-
-                    b.HasIndex("ProductFieldId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductCategoryFields");
-                });
-
-            modelBuilder.Entity("AuthScape.Marketplace.Models.ProductField", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newsequentialid()");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ProductCategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductCategoryId");
-
-                    b.ToTable("ProductFields");
+                    b.ToTable("MarketplaceProducts");
                 });
 
             modelBuilder.Entity("AuthScape.Models.Authentication.ThirdPartyAuthentication", b =>
@@ -2281,6 +2231,67 @@ namespace Services.Database.Migrations
                     b.ToTable("KanbanColumns");
                 });
 
+            modelBuilder.Entity("Models.Products.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("newsequentialid()");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HasCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Qty")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("WhenToRelease")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("productType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Models.Products.ProductCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("newsequentialid()");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategories");
+                });
+
             modelBuilder.Entity("Models.SomeSheet", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2686,33 +2697,6 @@ namespace Services.Database.Migrations
                     b.Navigation("DocumentFolder");
                 });
 
-            modelBuilder.Entity("AuthScape.Marketplace.Models.ProductCategoryField", b =>
-                {
-                    b.HasOne("AuthScape.Marketplace.Models.ProductField", "ProductField")
-                        .WithMany("ProductCategoryFields")
-                        .HasForeignKey("ProductFieldId")
-                        .IsRequired();
-
-                    b.HasOne("AuthScape.Marketplace.Models.Product", "Product")
-                        .WithMany("ProductCategoryFields")
-                        .HasForeignKey("ProductId")
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("ProductField");
-                });
-
-            modelBuilder.Entity("AuthScape.Marketplace.Models.ProductField", b =>
-                {
-                    b.HasOne("AuthScape.Marketplace.Models.ProductCategory", "ProductCategory")
-                        .WithMany("ProductFields")
-                        .HasForeignKey("ProductCategoryId")
-                        .IsRequired();
-
-                    b.Navigation("ProductCategory");
-                });
-
             modelBuilder.Entity("AuthScape.Models.PaymentGateway.StoreCredit", b =>
                 {
                     b.HasOne("AuthScape.Models.Users.Company", null)
@@ -3116,21 +3100,6 @@ namespace Services.Database.Migrations
             modelBuilder.Entity("AuthScape.Document.Models.DocumentSegment", b =>
                 {
                     b.Navigation("Folders");
-                });
-
-            modelBuilder.Entity("AuthScape.Marketplace.Models.Product", b =>
-                {
-                    b.Navigation("ProductCategoryFields");
-                });
-
-            modelBuilder.Entity("AuthScape.Marketplace.Models.ProductCategory", b =>
-                {
-                    b.Navigation("ProductFields");
-                });
-
-            modelBuilder.Entity("AuthScape.Marketplace.Models.ProductField", b =>
-                {
-                    b.Navigation("ProductCategoryFields");
                 });
 
             modelBuilder.Entity("AuthScape.Models.PaymentGateway.Wallet", b =>

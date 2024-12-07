@@ -12,7 +12,7 @@ using CoreBackpack;
 using Services.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using Models.Products;
+using AuthScape.Marketplace.Models;
 
 namespace API.Controllers
 {

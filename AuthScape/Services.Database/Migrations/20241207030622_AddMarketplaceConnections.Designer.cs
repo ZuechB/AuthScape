@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Services.Context;
 
@@ -11,9 +12,11 @@ using Services.Context;
 namespace Services.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241207030622_AddMarketplaceConnections")]
+    partial class AddMarketplaceConnections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -730,22 +733,15 @@ namespace Services.Database.Migrations
 
             modelBuilder.Entity("AuthScape.Marketplace.Models.ProductCategoryField", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newsequentialid()");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductFieldId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id", "ProductId", "ProductFieldId");
+                    b.HasKey("ProductId", "ProductFieldId");
 
                     b.HasIndex("ProductFieldId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductCategoryFields");
                 });

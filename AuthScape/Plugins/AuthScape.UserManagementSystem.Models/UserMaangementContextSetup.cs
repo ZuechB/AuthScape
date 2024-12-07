@@ -4,7 +4,7 @@ using Models.Users;
 
 namespace AuthScape.UserManageSystem.Models
 {
-    public class UserMaangementContextSetup
+    public class UserMangementContextSetup
     {
         public static void OnModelCreating(ModelBuilder builder)
         {
