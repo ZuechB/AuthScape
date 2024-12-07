@@ -34,6 +34,7 @@ using Microsoft.AspNetCore.Identity;
 using AuthScape.AzureCloudService;
 using AuthScape.PrivateLabel.Services;
 using AuthScape.ReadMail;
+using AuthScape.Marketplace.Services;
 
 namespace API
 {
@@ -141,6 +142,11 @@ namespace API
 
 
                 services.AddScoped<IAzureOpenAIService, AzureOpenAIService>();
+
+                services.AddScoped<IMarketplaceService, MarketplaceService>();
+
+
+                
 
 
 

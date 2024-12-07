@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AuthScape.Controllers\AuthScape.Controllers.csproj" />
     <ProjectReference Include="..\AuthScape.Logging\AuthScape.Logging.csproj" />
+    <ProjectReference Include="..\AuthScape.Marketplace\AuthScape.Marketplace.csproj" />
     <ProjectReference Include="..\AuthScape.ReadMail\AuthScape.ReadMail.csproj" />
     <ProjectReference Include="..\AuthScape.Services\AuthScape.Services.csproj" />
     <ProjectReference Include="..\Plugins\AuthScape.Analytics\AuthScape.Analytics\AuthScape.Analytics.csproj" />
