@@ -16,24 +16,18 @@ namespace AuthScape.Marketplace.Controllers
         }
 
         [HttpGet]
-        public IActionResult Search([FromQuery] string[] colors, [FromQuery] string[] categories, [FromQuery] string[] sizes)
+        //public IActionResult Search([FromQuery] string[] colors, [FromQuery] string[] categories, [FromQuery] string[] sizes)
+        public async Task<IActionResult> Search([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
         {
-            var results = marketplaceService.SearchProducts(colors, categories, sizes);
+            var results = await marketplaceService.SearchProducts(pageNumber, pageSize);
             return Ok(results);
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            marketplaceService.IndexProducts();
+            await marketplaceService.IndexProducts();
             return Ok();
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetMarketplace()
-        {
-            return Ok(await marketplaceService.GetMarketplace());
-        }
-
     }
 }
