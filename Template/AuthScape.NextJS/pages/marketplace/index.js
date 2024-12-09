@@ -1,29 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
 import {apiService} from 'authscape';
 import { Checkbox, TextField, Paper, Typography, Box, Stack } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { fontSize, fontWeight, paddingLeft, paddingRight } from '@xstyled/styled-components';
 import Card from '../../components/marketplace/card';
+import Pagination from '@mui/material/Pagination';
 
 export default function Home({currentUser}) {
 
     const [categories, setCategories] = useState(null);
     const [products, setProducts] = useState(null);
     const [total, setTotal] = useState(0);
-
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(8);
+    
+    const handleChange = (event, value) => {
+      setPage(value);
+    };
 
     useEffect(() => {
 
         const fetchData = async () => {
-            const response = await apiService().get("/Marketplace/GetMarketplace");
+
+            // how do I set the filters?
+
+            const response = await apiService().get("/Marketplace/Search?pageNumber=" + page + "&pageSize=" + pageSize);
             if (response != null && response.status == 200)
             {
                 setCategories(response.data.categories);
@@ -33,8 +37,7 @@ export default function Home({currentUser}) {
         }
         fetchData();
 
-    }, []);
-
+    }, [page, pageSize]);
 
     return (
         <Box>
@@ -76,20 +79,24 @@ export default function Home({currentUser}) {
                     })}                    
                 </Grid>
                 <Grid size={10}>
-                    <Box>
+                    <Box sx={{paddingBottom:2}}>
                         <Grid container spacing={2}>
                             {products != null && products.map((product) => {
                                 return (
                                 <Grid size={3}>
-                                    <Card />
-                                    {/* {product.name} test */}
+                                    <Card product={product} />
                                 </Grid>
                                 )
-                            })}                        
+                            })}
+
+                            
                         </Grid>
                     </Box>
+
+                    <Pagination count={pageSize} page={page} onChange={handleChange} />
                 </Grid>
             </Grid>
+            
         </Box>
     )
 }

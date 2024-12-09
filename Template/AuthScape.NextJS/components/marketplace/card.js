@@ -42,7 +42,7 @@ const ExpandMore = styled((props) => {
   ],
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({product}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -51,8 +51,6 @@ export default function RecipeReviewCard() {
 
   return (
     <Card sx={{ maxWidth: 345, position:"relative", border: "1px solid lightgray" }}>
-
-      
 
       <Stack 
         direction="row"
@@ -72,7 +70,6 @@ export default function RecipeReviewCard() {
         </IconButton>
       </Stack>
       
-      
       <CardMedia
         component="img"
         height="194"
@@ -83,7 +80,7 @@ export default function RecipeReviewCard() {
       <CardContent>
 
         <Typography variant="h5">
-          Shrimp and Chorizo Paella
+          {product.name}
         </Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -94,20 +91,18 @@ export default function RecipeReviewCard() {
 
 
         <Stack direction="row" spacing={2} sx={{paddingTop:2}}>
-          <Typography variant="h5" gutterBottom sx={{textDecoration:"line-through"}}>
+          <Typography variant="h6" gutterBottom sx={{textDecoration:"line-through"}}>
             $45.66
           </Typography>
 
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h6" gutterBottom>
             $45.66
           </Typography>
         </Stack>
 
-        <Typography variant="h5" gutterBottom sx={{paddingTop:2}}>
+        <Typography variant="h6" gutterBottom sx={{paddingTop:2}}>
             Qty: 300
         </Typography>
-
-
 
         <Button variant="contained" sx={{width:"100%", marginTop:2}}>Add To Cart</Button>
 
