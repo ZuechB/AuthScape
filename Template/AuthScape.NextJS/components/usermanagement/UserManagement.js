@@ -19,7 +19,7 @@ import { CSVUsersUpload } from './CSVUsersUpload'; // remove when done
 import { CustomFields } from './CustomFields'; // remove when done
 
 
-export default function UserManagement({height = "50vh", platformType = 1, onUploadCompleted = null}) {
+export const UserManagement = ({height = "50vh", platformType = 1, onUploadCompleted = null}) => {
 
     const [showUserDetails, setShowUserDetails] = useState(null);
     const [showCustomSettings, setShowCustomSettings] = useState(false);
@@ -30,7 +30,7 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
     const [allRoles, setAllRoles] = useState([]);
     const [allCompanies, setAllCompanies] = useState([]);
 
-    const [hasLoaded, setHasLoaded] = useState(false);
+    // const [hasLoaded, setHasLoaded] = useState(false);
 
 
     const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
@@ -140,14 +140,14 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
         },
     ];
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (hasLoaded == false)
-        {
-            setHasLoaded(true);
-        }
+    //     if (hasLoaded == false)
+    //     {
+    //         setHasLoaded(true);
+    //     }
 
-    }, []);
+    // }, []);
 
 
     useEffect(() => {
@@ -155,12 +155,7 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
         setDataGridRefreshKey(dataGridRefreshKey + 1);
 
     }, [searchByName]);
-
-    useEffect(() => {
-
-        
-        
-    }, []);
+    
 
     const getDataGrid = () => {
 
@@ -235,7 +230,6 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
 
     return (
         <Box>
-            {hasLoaded &&
             <Box>
                 <AppBar color={"invert"} position="static" sx={{borderRadius:1, paddingLeft:3, paddingRight:3, minHeight:50}}>
                     <Toolbar disableGutters>
@@ -639,7 +633,6 @@ export default function UserManagement({height = "50vh", platformType = 1, onUpl
                     }} />
                 </Box>
             </Box>
-            }
         </Box>
     );
 }

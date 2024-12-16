@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import { Box } from '@mui/system';
 // import UserManagement from 'authscape-usermanagement';
 
-import UserManagement from '../../components/usermanagement/UserManagement';
+import {UserManagement} from '../../components/usermanagement/UserManagement';
 
 export default function Users({}) {
 
