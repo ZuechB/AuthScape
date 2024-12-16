@@ -348,8 +348,8 @@ export default function PortalLayout({children, currentUser, pageProps}) {
                     <Menu key={index} menuItemStyles={menuItemStyles}>
 
                       {menuItem.href != null &&
-                      <MenuItem icon={menuItem.icon} disabled={menuItem.disabled} onClick={() => {
-
+                      <MenuItem icon={menuItem.icon} disabled={menuItem.disabled} onClick={(e) => {
+                        e.preventDefault();
                         if (menuItem.href != null)
                         {
                           router.push(menuItem.href);
@@ -359,8 +359,9 @@ export default function PortalLayout({children, currentUser, pageProps}) {
                       }
 
                       {menuItem.href == null &&
-                      <SubMenu label={menuItem.name} icon={menuItem.icon} disabled={menuItem.disabled} onClick={() => {
+                      <SubMenu label={menuItem.name} icon={menuItem.icon} disabled={menuItem.disabled} onClick={(e) => {
 
+                        e.preventDefault();
                         if (menuItem.href != null)
                         {
                           router.push(menuItem.href);
@@ -370,8 +371,9 @@ export default function PortalLayout({children, currentUser, pageProps}) {
                         
                         {menuItem.subnav.map((nav, index) => {
                           return (
-                            <MenuItem key={index} disabled={nav.disabled} onClick={() => {
+                            <MenuItem key={index} disabled={nav.disabled} onClick={(z) => {
 
+                              z.preventDefault();
                               if (nav.href != null)
                               {
                                 router.push(nav.href);

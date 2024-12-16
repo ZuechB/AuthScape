@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Authsome" Version="1.0.8" />
-    <PackageReference Include="NUglify" Version="1.21.10" />
+    <PackageReference Include="NUglify" Version="1.21.11" />
     <PackageReference Include="Scryber.Core.OpenType" Version="6.0.0.5-beta" />
   </ItemGroup>
 
