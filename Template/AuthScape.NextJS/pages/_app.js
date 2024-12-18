@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
   }
 
   return (
-    <AuthScapeApp Component={Component} muiTheme={baselightTheme} enforceLoggedIn={true} pageProps={pageProps} />
+    <AuthScapeApp Component={Component} layout={layout} muiTheme={baselightTheme} enforceLoggedIn={true} pageProps={pageProps} />
   )
 }
 

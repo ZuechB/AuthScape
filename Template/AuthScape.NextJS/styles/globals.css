@@ -46,6 +46,10 @@ a {
 
 
 
+.Puck > :first-child {
+  position: unset !important;
+}
+
 
 
 
