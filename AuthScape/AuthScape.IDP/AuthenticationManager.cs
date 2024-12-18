@@ -69,9 +69,9 @@ namespace AuthScape.IDP
                     // Enable the authorization, logout, userinfo, and introspection endpoints.
                     options.SetAuthorizationEndpointUris("/connect/authorize")
                            .SetTokenEndpointUris("/connect/token")
-                           .SetLogoutEndpointUris("/connect/logout")
+                           .SetEndSessionEndpointUris("/connect/logout")
                            .SetIntrospectionEndpointUris("/connect/introspect")
-                           .SetUserinfoEndpointUris("/connect/userinfo");
+                           .SetUserInfoEndpointUris("/connect/userinfo");
 
                     // Mark the "email", "profile" and "roles" scopes as supported scopes.
                     options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles, Scopes.OfflineAccess);
@@ -126,8 +126,8 @@ namespace AuthScape.IDP
                     options.UseAspNetCore()
                            .EnableTokenEndpointPassthrough()
                            .EnableAuthorizationEndpointPassthrough()
-                           .EnableLogoutEndpointPassthrough()
-                           .EnableUserinfoEndpointPassthrough()
+                           .EnableEndSessionEndpointPassthrough()
+                           .EnableUserInfoEndpointPassthrough()
                            .EnableStatusCodePagesIntegration();
                 })
 

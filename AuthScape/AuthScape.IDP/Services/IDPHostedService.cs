@@ -44,7 +44,7 @@ namespace IDP.Services
                         Permissions =
                         {
                             Permissions.Endpoints.Authorization,
-                            Permissions.Endpoints.Logout,
+                            OpenIddictConstants.Permissions.Endpoints.EndSession,
                             Permissions.Endpoints.Token,
                             Permissions.GrantTypes.AuthorizationCode,
                             Permissions.GrantTypes.RefreshToken,

@@ -44,7 +44,7 @@ namespace IDP.Controllers
             {
                 // If the client application request promptless authentication,
                 // return an error indicating that the user is not logged in.
-                if (request.HasPrompt(Prompts.None))
+                if (request.HasPromptValue(OpenIddictConstants.PromptValues.None))
                 {
                     var properties = new AuthenticationProperties(new Dictionary<string, string>
                     {

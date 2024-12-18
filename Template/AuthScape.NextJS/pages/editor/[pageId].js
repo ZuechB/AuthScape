@@ -2,7 +2,7 @@ import React, { useState, useRef, useMemo, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Puck } from "@measured/puck";
 import { Typography } from '@mui/material';
-import { color, fontSize } from '@xstyled/styled-components';
+import { color, fontSize, paddingLeft } from '@xstyled/styled-components';
 
 
 const WebsiteBuilder = ({loadedUser, showNavigationBar}) => {
@@ -93,9 +93,7 @@ const WebsiteBuilder = ({loadedUser, showNavigationBar}) => {
   const save = (data) => {};
 
   return (
-    <Box>
-        <Puck config={config} data={initialData} onPublish={save} />;
-    </Box>
+      <Puck className={"Puck"} config={config} data={initialData} onPublish={save} />
   );
 }
 

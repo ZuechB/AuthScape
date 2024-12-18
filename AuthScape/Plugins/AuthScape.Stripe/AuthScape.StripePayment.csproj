@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>AuthScape.StripePayment</PackageId>
-    <Version>1.2.196</Version>
+    <Version>1.2.198</Version>
     <Authors>ZuechB</Authors>
     <Company>ZuechB</Company>
     <Product>AuthScape.StripePayment</Product>
@@ -22,8 +22,8 @@
 
   <ItemGroup>
     <PackageReference Include="CoreBackpack" Version="1.0.40" />
-    <PackageReference Include="OpenIddict.Validation" Version="5.8.0" />
-    <PackageReference Include="OpenIddict.Validation.AspNetCore" Version="5.8.0" />
+    <PackageReference Include="OpenIddict.Validation" Version="6.0.0" />
+    <PackageReference Include="OpenIddict.Validation.AspNetCore" Version="6.0.0" />
     <PackageReference Include="Stripe.net" Version="47.1.0" />
   </ItemGroup>
 

@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>AuthScape.Document.Models</PackageId>
     <Title>AuthScape.Document.Models</Title>
-    <Version>1.2.196</Version>
+    <Version>1.2.198</Version>
     <Authors>ZuechB</Authors>
     <Company>ZuechB</Company>
     <Product>AuthScape.Document.Models</Product>
