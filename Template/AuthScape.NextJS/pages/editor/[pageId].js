@@ -1,7 +1,9 @@
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Puck } from "@measured/puck";
-import "@measured/puck/puck.css";
+import { Typography } from '@mui/material';
+import { color, fontSize } from '@xstyled/styled-components';
+
 
 const WebsiteBuilder = ({loadedUser, showNavigationBar}) => {
 
@@ -10,16 +12,77 @@ const WebsiteBuilder = ({loadedUser, showNavigationBar}) => {
   // Create Puck component config
   const config = {
     components: {
-      HeadingBlock: {
+      Header: {
         fields: {
-          children: {
+          Header: {
+            type: "select",
+            options: [
+              { label: "H1", value: "h1" },
+              { label: "H2", value: "h2" },
+              { label: "H3", value: "h3" },
+              { label: "H4", value: "h4" },
+              { label: "H5", value: "h5" },
+              { label: "H6", value: "h6" },
+            ],
+          },
+          Text: {
             type: "text",
           },
+          Color: {
+            type: "text"
+          },
+          TextAlign: {
+            type: "radio",
+            options: [
+              { label: "Left", value: "left" },
+              { label: "Center", value: "center" },
+              { label: "Right", value: "right" },
+            ]
+          }
         },
-        render: ({ children }) => {
-          return <h1>{children}</h1>;
+        render: ({ Text, TextAlign, Color, Header = "h1" }) => {
+          return <Box sx={{
+            textAlign: TextAlign
+          }}>
+            <Typography variant={Header} gutterBottom sx={{color: Color}}>
+            {Text}
+            </Typography>
+          </Box>;
         },
       },
+      Text: {
+        fields: {
+          Text: {
+            type: "text",
+          },
+          FontSize: {
+            type: "number"
+          },
+          Color: {
+            type: "text"
+          },
+          TextAlign: {
+            type: "radio",
+            options: [
+              { label: "Left", value: "left" },
+              { label: "Center", value: "center" },
+              { label: "Right", value: "right" },
+            ]
+          }
+        },
+        render: ({ Text, FontSize, Color, TextAlign }) => {
+          return <Box sx={{
+            textAlign: TextAlign,
+            fontSize: FontSize,
+            color: Color
+          }}>
+            {Text}
+          </Box>;
+        },
+      },
+      
+
+
     },
   };
   
