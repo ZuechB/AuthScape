@@ -20,6 +20,7 @@ using AuthScape.Spreadsheet.Models.Elements;
 using Services;
 using AuthScape.Document.Mapping.Models.Attributes;
 using AuthScape.Services;
+using CoreBackpack.Time;
 
 namespace AuthScape.Document.Mapping.Services
 {
@@ -67,7 +68,8 @@ namespace AuthScape.Document.Mapping.Services
         readonly IBlobStorage blobStorage;
         readonly AppSettings appSettings;
         readonly ISpreadsheetService spreadsheetService;
-        public MappingService(DatabaseContext databaseContext, IOpenAIService openAIService, ISpreadsheetService spreadsheetService, IFormRecognizerService formRecognizerService, IFileMappingService fileMappingService, IBlobStorage blobStorage, IOptions<AppSettings> appSettings)
+        readonly IUserManagementService userManagementService;
+        public MappingService(DatabaseContext databaseContext, IUserManagementService userManagementService, IOpenAIService openAIService, ISpreadsheetService spreadsheetService, IFormRecognizerService formRecognizerService, IFileMappingService fileMappingService, IBlobStorage blobStorage, IOptions<AppSettings> appSettings)
         {
             this.databaseContext = databaseContext;
             this.openAIService = openAIService;
@@ -76,6 +78,7 @@ namespace AuthScape.Document.Mapping.Services
             this.appSettings = appSettings.Value;
             this.spreadsheetService = spreadsheetService;
             this.fileMappingService = fileMappingService;
+            this.userManagementService = userManagementService;
         }
 
         public async Task AssignAdvancedRules(DocumentFilterForPreview documentFilter)
@@ -1722,6 +1725,9 @@ namespace AuthScape.Document.Mapping.Services
 
         public async Task CancelUpload(long documentId, long? companyId = null)
         {
+            var signedInUser = await userManagementService.GetSignedInUser();
+
+
             var documentComponent = await databaseContext.DocumentComponents
                 .Where(d => d.CompanyId == companyId && d.Id == documentId)
                 .FirstOrDefaultAsync();
@@ -1729,6 +1735,8 @@ namespace AuthScape.Document.Mapping.Services
             if (documentComponent != null)
             {
                 documentComponent.Status = DocumentComponentStatus.Archived;
+                documentComponent.ArchivedBy = signedInUser.Id;
+                documentComponent.ArchivedDate = SystemTime.Now;
                 await databaseContext.SaveChangesAsync();
             }
         }

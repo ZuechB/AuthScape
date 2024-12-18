@@ -28,6 +28,13 @@ namespace AuthScape.Document.Mapping.Models
         public string? Rules { get; set; }
 
 
+
+        public DateTimeOffset? ArchivedDate { get; set; }
+        public long? ArchivedBy { get; set; }
+
+
+
+
         public ICollection<Attribute>? Attributes { get; set; }
     }
 
