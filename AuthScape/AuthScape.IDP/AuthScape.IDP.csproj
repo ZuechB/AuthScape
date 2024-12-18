@@ -7,7 +7,7 @@
     <Authors>ZuechB</Authors>
     <Company>ZuechB</Company>
     <Product>AuthScape.IDP</Product>
-    <Version>1.2.194</Version>
+    <Version>1.2.196</Version>
     <PackageId>AuthScape.IDP</PackageId>
     <Description>Available soon</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>

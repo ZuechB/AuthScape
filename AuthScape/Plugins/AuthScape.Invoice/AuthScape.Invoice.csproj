@@ -10,7 +10,7 @@
     <Authors>ZuechB</Authors>
     <Company>ZuechB</Company>
     <Product>AuthScape.Invoice</Product>
-    <Version>1.2.194</Version>
+    <Version>1.2.196</Version>
     <OutputType>Library</OutputType>
 	<IsPackable>true</IsPackable>
   </PropertyGroup>
