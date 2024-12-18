@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>AuthScape.AzureCloudService</PackageId>
     <Title>AuthScape.AzureCloudService</Title>
-    <Version>1.2.194</Version>
+    <Version>1.2.196</Version>
     <Authors>$(AssemblyName)ZuechB</Authors>
     <Company>ZuechB</Company>
     <Product>AuthScape.AzureCloudService</Product>

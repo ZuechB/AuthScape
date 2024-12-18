@@ -4,7 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.2.194</Version>
+    <Version>1.2.196</Version>
     <Authors>ZuechB</Authors>
     <Company>ZuechB</Company>
     <Product>AuthScape.PrivateLabel</Product>
