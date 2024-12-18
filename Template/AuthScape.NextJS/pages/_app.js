@@ -15,6 +15,9 @@ import 'react-querybuilder/dist/query-builder.css';
 import "../styles/reactGrid.scss";
 import 'react-image-crop/dist/ReactCrop.css'
 
+
+import "@measured/puck/puck.css";
+
 function MyApp({ Component, pageProps }) {
 
   const layout = ({children, currentUser}) => {
@@ -28,7 +31,7 @@ function MyApp({ Component, pageProps }) {
   }
 
   return (
-    <AuthScapeApp Component={Component} layout={layout} muiTheme={baselightTheme} enforceLoggedIn={true} pageProps={pageProps} />
+    <AuthScapeApp Component={Component} muiTheme={baselightTheme} enforceLoggedIn={true} pageProps={pageProps} />
   )
 }
 
