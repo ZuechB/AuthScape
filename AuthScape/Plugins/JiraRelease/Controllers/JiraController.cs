@@ -42,7 +42,6 @@ namespace AuthScape.Spreadsheet.Controller.Controllers
 
         //    Console.WriteLine(response.Message.Content);
 
-
         //    return Ok();
         //}
     }

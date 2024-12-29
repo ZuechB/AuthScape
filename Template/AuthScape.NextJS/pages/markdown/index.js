@@ -1,13 +1,30 @@
 // pages/markdown.js
-import React from 'react';
-import Markdown from 'react-markdown'
+import React, { useEffect } from 'react';
+import Markdown from 'react-markdown';
+import {apiService} from 'authscape';
 
 const MarkdownPage = () => {
 
-const markdown = '# Hi, *Pluto*!'
+  const [markdown, setmarkMdown] = useState(null);
+
+  // const markdown = '# Hi, *Pluto*!'
 
 
-  return (
+  useEffect(() => {
+  
+  const fetchData = async () => {
+    let releases = await apiService().get("/releases");
+    if (releases != null && releases.status == 200)
+    {
+      setmarkMdown(releases.data);
+    }
+  }
+  fetchData();
+
+}, []);
+
+
+return (
     <div>
       <Markdown>{markdown}</Markdown>
     </div>
