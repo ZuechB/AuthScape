@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AuthScape.Uno\AuthScape.Uno.csproj"
+                      SetTargetFramework="TargetFramework=net9.0-browserwasm"
+                      ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\AuthScape.Uno.DataContracts\AuthScape.Uno.DataContracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+    <PackageReference Include="Uno.Wasm.Bootstrap.Server" />
+  </ItemGroup>
+
+</Project>

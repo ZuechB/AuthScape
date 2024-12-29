@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthScape.Uno", "AuthScape.Uno\AuthScape.Uno.csproj", "{A9E8FA36-F306-4C54-A307-D3E1F5BEEFF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthScape.Uno.Server", "AuthScape.Uno.Server\AuthScape.Uno.Server.csproj", "{E5F0F441-89C9-4A4F-B8D7-AA346069CCD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthScape.Uno.DataContracts", "AuthScape.Uno.DataContracts\AuthScape.Uno.DataContracts.csproj", "{7B12938E-A51A-4DCE-A4C9-7BD211C8A4FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthScape.Uno.MauiControls", "AuthScape.Uno.MauiControls\AuthScape.Uno.MauiControls.csproj", "{3AFE466C-A6C6-4A83-9C31-8F8270909B7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C9D76D36-8435-449A-A3C3-7E3FA2A03394}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9E8FA36-F306-4C54-A307-D3E1F5BEEFF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9E8FA36-F306-4C54-A307-D3E1F5BEEFF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9E8FA36-F306-4C54-A307-D3E1F5BEEFF9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A9E8FA36-F306-4C54-A307-D3E1F5BEEFF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9E8FA36-F306-4C54-A307-D3E1F5BEEFF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9E8FA36-F306-4C54-A307-D3E1F5BEEFF9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E5F0F441-89C9-4A4F-B8D7-AA346069CCD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5F0F441-89C9-4A4F-B8D7-AA346069CCD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5F0F441-89C9-4A4F-B8D7-AA346069CCD1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E5F0F441-89C9-4A4F-B8D7-AA346069CCD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5F0F441-89C9-4A4F-B8D7-AA346069CCD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5F0F441-89C9-4A4F-B8D7-AA346069CCD1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7B12938E-A51A-4DCE-A4C9-7BD211C8A4FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B12938E-A51A-4DCE-A4C9-7BD211C8A4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B12938E-A51A-4DCE-A4C9-7BD211C8A4FB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7B12938E-A51A-4DCE-A4C9-7BD211C8A4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B12938E-A51A-4DCE-A4C9-7BD211C8A4FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B12938E-A51A-4DCE-A4C9-7BD211C8A4FB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3AFE466C-A6C6-4A83-9C31-8F8270909B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AFE466C-A6C6-4A83-9C31-8F8270909B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AFE466C-A6C6-4A83-9C31-8F8270909B7F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3AFE466C-A6C6-4A83-9C31-8F8270909B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AFE466C-A6C6-4A83-9C31-8F8270909B7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AFE466C-A6C6-4A83-9C31-8F8270909B7F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
