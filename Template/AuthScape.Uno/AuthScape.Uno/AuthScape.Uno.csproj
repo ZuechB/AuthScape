@@ -49,9 +49,14 @@
       Navigation;
       ThemeService;
     </UnoFeatures>
+    <Platforms>AnyCPU;ARM64</Platforms>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="IdentityModel.OidcClient" />
+  </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AuthScape.Client\AuthScape.Client.csproj" />
     <ProjectReference Include="..\AuthScape.Uno.DataContracts\AuthScape.Uno.DataContracts.csproj" />
     <ProjectReference Include="..\AuthScape.Uno.MauiControls\AuthScape.Uno.MauiControls.csproj" />
   </ItemGroup>
