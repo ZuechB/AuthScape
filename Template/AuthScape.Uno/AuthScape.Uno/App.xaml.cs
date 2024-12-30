@@ -1,4 +1,7 @@
+using AuthScape.Client;
+using Microsoft.Maui.Storage;
 using Uno.Resizetizer;
+using Windows.Services.Maps;
 
 namespace AuthScape.Uno;
 public partial class App : Application
@@ -77,6 +80,7 @@ public partial class App : Application
                     .AddTransient<DelegatingHandler, DebugHttpHandler>()
 #endif
                     .AddSingleton<IWeatherCache, WeatherCache>()
+                    .AddSingleton<IAPIService, APIService>() // API Service here..
                     .AddRefitClient<IApiClient>(context))
                 .UseAuthentication(auth =>
     auth.AddWeb(name: "WebAuthentication")
@@ -98,15 +102,18 @@ public partial class App : Application
         Host = await builder.NavigateAsync<Shell>
             (initialNavigate: async (services, navigator) =>
             {
-                var auth = services.GetRequiredService<IAuthenticationService>();
-                var authenticated = await auth.RefreshAsync();
-                if (authenticated)
+                //var auth = services.GetRequiredService<IAuthenticationService>();
+                //var authenticated = await auth.RefreshAsync();
+                var apiService = services.GetRequiredService<IAPIService>();
+
+                var access_token = await SecureStorage.GetAsync("access_token");
+                if (access_token != null)
                 {
                     await navigator.NavigateViewModelAsync<MainModel>(this, qualifier: Qualifiers.Nested);
                 }
                 else
                 {
-                    await navigator.NavigateViewModelAsync<LoginModel>(this, qualifier: Qualifiers.Nested);
+                    await navigator.NavigateViewModelAsync<LoginModel>(this, qualifier: Qualifiers.None);
                 }
             });
     }

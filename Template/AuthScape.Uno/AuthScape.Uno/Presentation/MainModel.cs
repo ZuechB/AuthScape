@@ -1,3 +1,7 @@
+using Microsoft.Maui.Storage;
+using Uno.Extensions.Navigation;
+using Windows.ApplicationModel.Core;
+
 namespace AuthScape.Uno.Presentation;
 
 public partial record MainModel
@@ -15,6 +19,12 @@ public partial record MainModel
         Title = "Main";
         Title += $" - {localizer["ApplicationName"]}";
         Title += $" - {appInfo?.Value?.Environment}";
+
+        Task.Run(async () =>
+        {
+            await Name.SetAsync(await SecureStorage.GetAsync("access_token"));
+        });
+        
     }
 
     public string? Title { get; }
@@ -41,7 +51,8 @@ public partial record MainModel
 
     public async ValueTask Logout(CancellationToken token)
     {
-        await _authentication.LogoutAsync(token);
+        SecureStorage.RemoveAll();
+        await _navigator.NavigateViewModelAsync<LoginModel>(this, qualifier: Qualifiers.Root);
     }
 
     private IAuthenticationService _authentication;
